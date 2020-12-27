@@ -1,0 +1,15 @@
+[commit]
+  template = ~/.gitmessage
+
+[core]
+
+	# Use custom across machines
+	excludesFile = ~/.gitignore
+	attributesFile = ~/.gitattributes
+
+[push]
+  default = current
+
+[user]
+	email = millerrye17@gmail.com
+	name = Rye Miller
