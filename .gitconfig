@@ -1,3 +1,11 @@
+[alias]
+
+	# View working tree in short format
+	s = status -s
+
+	# Show the email for the current repo
+	whoami = config user.email
+
 [commit]
 
 	template = ~/.gitmessage
@@ -8,6 +16,15 @@
 	excludesFile = ~/.gitignore
 	attributesFile = ~/.gitattributes
 
+	# Speed up commands w/ untracked files
+	untrackedCache = true
+
+
+[diff]
+
+	# Detect copies as well as renames
+	renames = copies
+
 [init]
 
 	# Rename the branch main (for github)
@@ -17,7 +34,11 @@
 
 	default = current
 
+	# Push my tags too
+	followTags = true
+
 [user]
 
+	# User Information
 	email = millerrye17@gmail.com
 	name = Rye Miller
