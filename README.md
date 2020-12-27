@@ -2,7 +2,9 @@ Dotfiles
 ========
 
 A collection of scripts and configurations for my commonly used terminal apps
-and shells. An attempt at environment zen.
+and shells.
+
+An attempt at environment zen :neckbeard:
 
 
 Getting Started
@@ -21,9 +23,10 @@ Facts
 Configuration
 -------------
 
-### One
+### Terminal
 
-One
+#### Bash
+ * Profiles
 
 
 ### Two
