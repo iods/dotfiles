@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Environment exports dotfile (.exports)
 #
 # The basic exports (.extra has everything I don't commit).
@@ -7,3 +8,6 @@
 # Copyright (c) 2020, Rye Miller
 #
 # echo "Loaded [4] fourth in sequence."
+
+# Default Editor
+export EDITOR="vim"
