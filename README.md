@@ -12,6 +12,14 @@ Getting Started
 
 Good developers put time and thought into their workspaces.
 
+### Installation
+
+Be careful. This wipes any current setup. Backup any existing configuration files.
+
+```shell
+$ curl -fsSL https://raw.githubusercontent.com/iods/dotfiles/feat/v2/install | bash
+```
+Re-open the terminal.
 
 Facts
 -----
@@ -62,4 +70,4 @@ MIT
 Copyright
 ---------
 
-Copyright (c) 2020, Rye Miller
+Copyright (c) 2022, Rye Miller
