@@ -1,4 +1,4 @@
-# Path to your dotfiles.
+# path to the dotfiles.
 export DOTS="$HOME/.dotfiles"
 
 
@@ -29,7 +29,7 @@ HISTFILE="$HOME/.zsh_history"
 HISTSIZE=5000
 SAVEHIST=2000
 setopt APPEND_HISTORY           # appends history to the existing file (.zsh_history)
-setopt BANG_HISTORY             # treat the "!" character special during expansion
+setopt BANG_HIST                # treat the "!" character special during expansion
 setopt EXTENDED_HISTORY         # write history in the ":start:elapsed;command" format
 unsetopt HIST_BEEP              # don't beep when attempting to access a missing history entry
 setopt HIST_EXPIRE_DUPS_FIRST   # expire dup entries first when trimming history
@@ -40,7 +40,6 @@ setopt HIST_FIND_NO_DUPS        # do not display a line previously found
 setopt HIST_NO_STORE            # don't store history commands
 setopt HIST_REDUCE_BLANKS       # remove blank lines before recording entries
 setopt HIST_SAVE_NO_DUPS        # don't write duplicate entries in the history
-setopt HIST_SHARE_HISTORY       # share history across multiple sessions
 setopt HIST_VERIFY              # don't immediately execute upon history expansion
 setopt INC_APPEND_HISTORY       # write to the history file immediately, not when the shell exits
 unsetopt SHARE_HISTORY          # don't share history between all sessions
@@ -49,7 +48,7 @@ unsetopt CLOBBER                # must use >| to truncate existing files
 unsetopt CORRECT                # don't try to correct the spelling of commands
 unsetopt CORRECT_ALL            # don't try to correct the spelling of all arguments in a line
 unsetopt FLOW_CONTROL           # disable start/stop characters in shell editor
-setopt INTERACTIVE COMMENTS     # enable comments in interactive shell
+setopt INTERACTIVE_COMMENTS     # enable comments in interactive shell
 unsetopt MAIL_WARNING           # don't print a warning message if a mail file has been accessed
 setopt PATH_DIRS                # perform path search even on command names with slashes
 setopt RC_QUOTES                # allow 'Henry''s Garage' instead of 'Henry'\''s Garage'
@@ -65,14 +64,10 @@ setopt NOTIFY                   # report status of background jobs immediately
 setopt PROMPT_SUBST             # expand parameters in prompt variables
 
 unsetopt BEEP                   # be quiet :)
-setopt COMBINING_CHARACTERS     # combine zero-length punctuation characters (accents) with the base character
+setopt COMBINING_CHARS          # combine zero-length punctuation characters (accents) with the base character
 setopt EMACS                    # use emacs keybindings in the shell
 
 
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-
-export ZSH="$HOME/.oh-my-zsh"
 
 . "${DOTS}/bash/aliases.sh"  # include the aliases
 
@@ -98,14 +93,14 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export LANG=en_US.UTF-8
+export PATH=/opt/homebrew/bin:$PATH
+export ZSH="$HOME/.oh-my-zsh"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-export PATH=/opt/homebrew/bin:$PATH
-# Preferred editor for local and remote sessions
+
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
@@ -132,16 +127,7 @@ export PATH="/Users/rmiller/Developer/Corra/cloud-tools/bin:$PATH"
 
 
 # BEGIN SNIPPET: Magento Cloud CLI configuration
-HOME=${HOME:-'/Users/rmiller'}
+# HOME=${HOME:-'/Users/rmiller'}
 export PATH="$HOME/"'.magento-cloud/bin':"$PATH"
 if [ -f "$HOME/"'.magento-cloud/shell-config.rc' ]; then . "$HOME/"'.magento-cloud/shell-config.rc'; fi # END SNIPPET
 #export PATH="$HOME/.cloud-tools/bin:$PATH"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
