@@ -113,10 +113,15 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
+# BEGIN SNIPPET: Node Version Manager
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# END SNIPPET
 
 # BEGIN SNIPPET: Magento Cloud CLI configuration
 export PATH="$HOME/"'.magento-cloud/bin':"$PATH"
-if [ -f "$HOME/"'.magento-cloud/shell-config.rc' ]; then . "$HOME/"'.magento-cloud/shell-config.rc'; fi # END SNIPPET
+if [ -f "$HOME/"'.magento-cloud/shell-config.rc' ]; then
+  source "$HOME/"'.magento-cloud/shell-config.rc';
+fi
+# END SNIPPET
