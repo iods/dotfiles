@@ -119,6 +119,4 @@ export NVM_DIR="$HOME/.nvm"
 
 # BEGIN SNIPPET: Magento Cloud CLI configuration
 export PATH="$HOME/"'.magento-cloud/bin':"$PATH"
-if [ -f "$HOME/"'.magento-cloud/shell-config.rc' ]; then
-  . "$HOME/"'.magento-cloud/shell-config.rc';
-fi # END SNIPPET
+if [ -f "$HOME/"'.magento-cloud/shell-config.rc' ]; then . "$HOME/"'.magento-cloud/shell-config.rc'; fi # END SNIPPET
