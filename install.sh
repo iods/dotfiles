@@ -45,8 +45,8 @@ function setup_brew() {
 function create_symlinks() {
   local DOTFILES="${HOME}/.dotfiles"
 
-  (ln -s "${DOTFILES}/.bash_profile" "${HOME}/.bash_profile")
-  (ln -s "${DOTFILES}/.zshrc" "${HOME}/.zshrc")
+  (ln -sf "${DOTFILES}/.bash_profile" "${HOME}/.bash_profile")
+  (ln -sf "${DOTFILES}/.zshrc" "${HOME}/.zshrc")
 }
 
 function main() {
