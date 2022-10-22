@@ -52,6 +52,7 @@ function main() {
   setup_omz
   setup_brew
   create_symlinks
+  touch "${HOME}/.hushlogin"
 }
 
 main "$@"
