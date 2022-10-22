@@ -1,7 +1,6 @@
 # path to the dotfiles.
 export DOTS="$HOME/.dotfiles"
 
-
 # init colors and word characters are alphanumeric only
 autoload -U colors && colors
 autoload -U select-word-style && select-word-style bash
@@ -91,17 +90,21 @@ zstyle ':omz:update' frequency 13
 
 plugins=(git)
 
-
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export LANG=en_US.UTF-8
+# export MANPATH="/usr/local/man:$MANPATH"
 export PATH=/opt/homebrew/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
 
+export PATH=/usr/local/bin:$PATH
+export PATH="/opt/homebrew/opt/php@7.4/bin:$PATH"
+export PATH="/opt/homebrew/opt/php@7.4/sbin:$PATH"
+
+export PATH="$HOME/.cloud-tools/bin:$PATH"
+
+# export ARCHFLAGS="-arch x86_64"
+
 source $ZSH/oh-my-zsh.sh
-
-
-
-# export MANPATH="/usr/local/man:$MANPATH"
 
 
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -110,27 +113,12 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-
-
-
-
-export PATH=/usr/local/bin:$PATH
-export PATH="/opt/homebrew/opt/php@7.4/bin:$PATH"
-export PATH="/opt/homebrew/opt/php@7.4/sbin:$PATH"
-
-
-export PATH="/Users/rmiller/Developer/Corra/cloud-tools/bin:$PATH"
-
-
 # BEGIN SNIPPET: Magento Cloud CLI configuration
-# HOME=${HOME:-'/Users/rmiller'}
 export PATH="$HOME/"'.magento-cloud/bin':"$PATH"
-if [ -f "$HOME/"'.magento-cloud/shell-config.rc' ]; then . "$HOME/"'.magento-cloud/shell-config.rc'; fi # END SNIPPET
-#export PATH="$HOME/.cloud-tools/bin:$PATH"
+if [ -f "$HOME/"'.magento-cloud/shell-config.rc' ]; then
+  . "$HOME/"'.magento-cloud/shell-config.rc';
+fi # END SNIPPET
