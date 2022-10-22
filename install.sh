@@ -10,12 +10,8 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-WORKING_DIR="$(dirname "${BASH_SOURCE[0]}")"
-WORKING_DIR="$(cd "${WORKING_DIR}" && pwd)"
-
 function clone_dotfiles() {
   local INSTALL_PATH="${HOME}/.dotfiles"
-
   # (cd "${HOME}" || return)
 
   if [[ ! -f "${HOME}/.ssh/id_rsa" ]]; then
