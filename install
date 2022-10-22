@@ -43,6 +43,7 @@ function create_symlinks() {
   local DOTFILES="${HOME}/.dotfiles"
 
   (ln -sf "${DOTFILES}/.bash_profile" "${HOME}/.bash_profile")
+  (ln -sf "${DOTFILES}/.zshenv" "${HOME}/.zshenv")
   (ln -sf "${DOTFILES}/.zshrc" "${HOME}/.zshrc")
 }
 
