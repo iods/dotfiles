@@ -2,9 +2,6 @@
 #
 # TODO: write script description
 #
-# 1. clone it locally
-# 2. copy the files or ln -s?
-# 3.
 
 set -o errexit
 set -o nounset
@@ -12,14 +9,14 @@ set -o pipefail
 
 function clone_dotfiles() {
   local INSTALL_PATH="${HOME}/.dotfiles"
-  # (cd "${HOME}" || return)
+  (cd "${HOME}" || return)
 
   if [[ ! -f "${HOME}/.ssh/id_rsa" ]]; then
     echo "There was no SSH key found. Not much will get done."
     exit 1
   fi
 
-  git clone git@github.com:iods/dotfiles.git "${INSTALL_PATH}"
+  git clone --quiet git@github.com:iods/dotfiles.git "${INSTALL_PATH}"
 }
 
 function setup_omz() {
