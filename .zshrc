@@ -1,6 +1,7 @@
 # Path to your dotfiles.
 export DOTS="$HOME/.dotfiles"
 
+
 # init colors and word characters are alphanumeric only
 autoload -U colors && colors
 autoload -U select-word-style && select-word-style bash
@@ -85,7 +86,7 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 zstyle ':omz:update' frequency 13
 # DISABLE_MAGIC_FUNCTIONS="true"
-DISABLE_LS_COLORS="true"
+# DISABLE_LS_COLORS="true"
 # DISABLE_AUTO_TITLE="true"
 # ENABLE_CORRECTION="true"
 # COMPLETION_WAITING_DOTS="true"
@@ -100,25 +101,47 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 export PATH=/opt/homebrew/bin:$PATH
+# Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
 #   export EDITOR='mvim'
 # fi
 
+# Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+
+
+
 export PATH=/usr/local/bin:$PATH
 export PATH="/opt/homebrew/opt/php@7.4/bin:$PATH"
 export PATH="/opt/homebrew/opt/php@7.4/sbin:$PATH"
+
+
 export PATH="/Users/rmiller/Developer/Corra/cloud-tools/bin:$PATH"
+
+
 # BEGIN SNIPPET: Magento Cloud CLI configuration
 HOME=${HOME:-'/Users/rmiller'}
 export PATH="$HOME/"'.magento-cloud/bin':"$PATH"
 if [ -f "$HOME/"'.magento-cloud/shell-config.rc' ]; then . "$HOME/"'.magento-cloud/shell-config.rc'; fi # END SNIPPET
 #export PATH="$HOME/.cloud-tools/bin:$PATH"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
