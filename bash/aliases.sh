@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # TODO: write script description
 #
@@ -12,11 +13,11 @@ alias ...='cd ../..'             # go up two directories
 alias 3.='cd ../../../'          # go up three directories
 alias 4.='cd ../../../../'       # go up four directories
 alias 5.='cd ../../../../../'    # go up five directories
-alias ~='cd "$HOME"'             # go to the home directory
-alias -- -='cd -'                # go back to previous directory
+alias ~='cd $HOME'               # go to the home directory
+alias -.='cd -'                  # go back to previous directory
 
-alias path='echo "$PATH" | tr -s ":" "\n"'    # pretty print the $PATHs
-alias fpath='print -l "$FPATH"'  # pretty print the $FPATHs
+alias path='echo $PATH | tr -s ":" "\n"'    # pretty print the $PATHs
+alias fpath='echo $FPATH | tr -s ":" "\n"'  # pretty print the $FPATHs
 
 alias tree='tree --dirsfirst'    # get description
 
@@ -33,6 +34,7 @@ alias l='ls -CF'                 # get description
 
 alias df='df -h'                 # default to Human Readable Figures
 alias du='du -h'                 # default to Human Readable Figures
+
 
 #
 # Git Aliases
@@ -62,6 +64,7 @@ alias sudo='sudo '  # http://askubuntu.com/questions/22037/aliases-not-available
 
 alias sc-dreload='sudo systemctl daemon-reload'
 
+
 #
 # Misc Aliases
 #
@@ -78,9 +81,17 @@ alias reload='source "${HOME}"/.bash_profile && echo "sourced ~/.bash_profile"'
 alias rm='rm -i'
 alias updot='printf "Updating dotfiles."'
 
+
 #
 # OSX Aliases
 #
+alias binge='brew update && brew upgrade && brew upgrade --cask && brew cleanup'
+alias cleanup='find . -type f -name "*.DS_Store" -ls -delete'
+alias clipdecode='pbpaste|base64 --decode'
+alias oping='sudo oping'
+alias noping='sudo noping'
+alias takeouttrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv $HOME/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
+
 
 #
 # Ubuntu OS Aliases

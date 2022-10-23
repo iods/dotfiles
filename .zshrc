@@ -68,7 +68,7 @@ setopt EMACS                    # use emacs keybindings in the shell
 
 
 
-. "${DOTS}/bash/aliases.sh"  # include the aliases
+
 
 ZSH_THEME="robbyrussell"
 ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
@@ -106,6 +106,7 @@ export PATH="$HOME/.cloud-tools/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 
+source "${DOTS}/bash/aliases.sh"  # include the aliases
 
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
