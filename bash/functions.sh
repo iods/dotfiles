@@ -1,9 +1,8 @@
-# Bash functions dotfile (.functions)
+#!/bin/bash
 #
 # Custom functions for daily tasks.
 #
-# Version 0.1.0 [2020-12-27]
 # http://github.com/iods/dotfiles
-# Copyright (c) 2020, Rye Miller
+# Copyright (c) 2022, Rye Miller and the Dark Society
 #
 # echo "Loaded [8] last."
