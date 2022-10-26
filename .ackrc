@@ -1,0 +1,175 @@
+# --ignore-ack-defaults
+# .ackrc
+#
+# ack is a tool like grep, built for developers with large trees of heterogeneous source code.
+# ack will search all files in the current directory and sub-directories.
+# ack only checks ~/.ackrc by default for switches, adding `export ACKRC=".ackrc` sets up per-directory search.
+# ack file will only work with `ack`, it will not work with `ag`
+#
+# Installation:
+#   - to install ack, see http://betterthangrep.com/
+#
+# Usage:
+#   - ack [OPTIONS]... PATTERN [files or directories]
+#
+# is:    Match the filename exactly
+# ext:   Match the extension of the filename exactly
+# match: Match the filename against a Perl regular expression
+# firstlinematch: Match the first 250 characters of the first line
+#   of text against a Perl regular expression.  This is only for
+#   the --type-add option.
+#
+
+#
+# [1 Searching
+#
+
+# ignore case distinctions in patterns
+--ignore-case
+
+# always search using case sensitivity if there is mixed case
+# is ignored if the -i is specified
+# --[no]smart-case
+--smart-case
+
+
+#
+# [2 Search Output
+#
+
+# only print filenames containing matches
+# --files-with-matches
+
+
+#
+# [3 File Presentation
+#
+
+# always use "less -r" as pager
+# --pager
+# less -r
+
+# always highlight the match
+# --[no]color
+--color
+
+
+#
+# [4 File Finding
+#
+
+# always sort the files found, lexically
+--sort-files
+
+
+#
+# [5 File Inclusion and Exclusion
+#
+
+# add a filter for ignoring files
+# --ignore-file=filter
+
+# add minified files
+--ignore-file=match:/[.-]min[.]js$/
+--ignore-file=match:/[.]js[.]min$/
+--ignore-file=match:/[.]min[.]css$/
+--ignore-file=match:/[.]css[.]min$/
+
+# add PDFs, as they pass Perl's -T detection
+--ignore-file=ext:pdf
+--ignore-file=ext:log
+
+# add common graphics
+--ignore-file=ext:gif,jpg,jpeg,png
+
+# add mac specific files
+--ignore-file=match:/[.]DS_Store$/
+--ignore-file=match:/favicon.ico$/
+
+# add Magento specific files
+--ignore-file=match:/[.]env$/
+--ignore-file=match:/[.]env.example$/
+--ignore-file=match:/tags$/
+--ignore-file=match:/yarn.lock$/
+--ignore-file=match:/composer.lock$/
+--ignore-file=match:/readme.md$/
+--ignore-file=match:/[.]gitattributes$/
+--ignore-file=match:/[.]gitignore$/
+--ignore-file=match:/Dockerfile$/
+--ignore-file=match:/dockerfile$/
+--ignore-file=match:/docker-compose.yml$/
+--ignore-file=match:/Docker-compose.yml$/
+--ignore-file=match:/[.]docker-compose.yml$/
+--ignore-file=match:/[.]gitmodules$/
+--ignore-file=match:/[.]htaccess$/
+--ignore-file=match:/[.]_htaccess$/
+--ignore-file=match:/robots.txt$/
+--ignore-file=match:/server.php$/
+--ignore-file=match:/web.config$/
+--ignore-file=match:/[.]phpstorm.meta.php$/
+
+--ignore-file=is:tags
+
+# add or remove the following directories from the ignore list
+# --[no]ignore-dir and --[no]ignore-directory
+--ignore-dir=is:build/
+--ignore-dir=is:.cache/
+--ignore-dir=is:.corra/
+--ignore-dir=css/
+--ignore-dir=is:.docker/
+--ignore-dir=is:.git/
+--ignore-dir=is:.idea/
+--ignore-dir=js/
+--ignore-dir=is:node_modules/
+--ignore-dir=public/
+--ignore-dir=is:vendor/
+
+
+#
+# [6 File Type Specification
+#
+
+# files with FILTERARGS applied to the FILTER are recognized as a TYPE
+# --type-set=TYPE:FILTER:FILTERARGS (replaces existing)
+# --type-add=TYPE:FILTER:FILTERARGS
+
+--type-set=config=.cfg,.conf,.config,.ini
+--type-set=docker=Dockerfile*,docker-compose*
+--type-set=feature=.feature
+--type-set=features=.feature
+--type-set-golang=.go
+--type-set=jenkins=.jenkinsfile,.jenkinsfile_script
+--type-set=jmeter=.jmx
+--type-set-py=.py
+--type-set=ruby=.rb,.rhtml,.rjs,.rxml,.erb,.rake,Rakefile
+--type-set=shell=.sh,.zsh,.bash
+--type-set=sql=.sql,.bteq,.btq
+--type-set=steps=steps.rb,steps.java
+--type-set=text=.txt,.log,.yaml,.yml
+--type-set=txt=.txt,.log,.yaml,.yml
+--type-set=web=.css,.scss,.htm,.html,.php,.phtml,.js
+
+--type-add=batch:ext:bat,cmd
+--type-add=css:ext:css
+--type-add=graphql=.graphql
+--type-add=html:ext:htm,html
+--type-add=js:ext:js
+--type-add=json:ext:json
+--type-add=make:is:Dockerfile
+--type-add=make:is:docker-compose.yml
+--type-add=make:is:Homestead.yaml
+--type-add=make:is:makefile
+--type-add=make:is:Makefile
+--type-add=make:is:Vagrantfile
+--type-add=php:ext:php,phpt,php3,php4,php5,phtml
+--type-add=php:firstlinematch:/^#!.*\bphp/
+--type-add=sass:ext:sass,scss
+--type-add=shell:ext:sh,bash,csh,tcsh,ksh,zsh,fish
+--type-add=shell:firstlinematch:/^#!.*\b(?:ba|t?c|k|z|fi)?sh\b/
+--type-add=sql:ext:sql,ctl
+--type-add=typescript=.ts,.tsx
+--type-add=vim:ext:vim
+--type-add=vue:ext:vue
+--type-add=xml:ext:xml,dtd,xsl,xslt,ent
+--type-add=xml:firstlinematch:/<[?]xml/
+--type-add=yaml:ext:yaml,yml
