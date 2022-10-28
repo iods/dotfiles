@@ -1,103 +1,7 @@
-Dotfiles
-========
-
-An experimental, ongoing collection of scripts and configurations for my commonly
-used terminal apps and shells.
-
-
-Getting Started
----------------
-
-### Introduction
-A real attempt at environment zen :neckbeard:
-
-### Background
-Good developers put time and thought into their workspaces.
-
-### References
- * [Awesome dotfiles](https://project-awesome.org/webpro/awesome-dotfiles)
- * [What do you use to manage your dotfiles?](https://news.ycombinator.com/item?id=11070797)
- * [Dotfiles:automating macOS system configuration](https://kalis.me/dotfiles-automating-macos-system-configuration/)
- * [Using Dotfiles for Productivity](https://www.twilio.com/blog/using-dotfiles-productivity-bootstrap-systems)
- * [Homebrew](https://speakerdeck.com/anahkiasen/a-storm-homebrewin)
- * [Zero to Hero with Dotfiles](https://code.tutsplus.com/tutorials/setting-up-a-mac-dev-machine-from-zero-to-hero-with-dotfiles--net-35449)
- * [Mathais Bynens](https://github.com/mathiasbynens/dotfiles)
- * [Github Dots](https://dotfiles.github.io/)
- * [What is a Dotfile and How to Create it?](https://www.freecodecamp.org/news/dotfiles-what-is-a-dot-file-and-how-to-create-it-in-mac-and-linux)
-
-Configuration and setups for each project.
-
-### Installation
-
-Be careful. This wipes any current setup. Backup any existing configuration files.
-
-```shell
-$ curl -fsSL https://raw.githubusercontent.com/iods/dotfiles/install | bash
-```
-Re-open the terminal.
-
-Facts
------
-
-* Version 0.1.0
-* [Repository](https://github.com/iods/dotfiles)
-
-
-Contents
---------
-
-```shell
-# /bin            # Binaries and scripts to support various tasks.
-# /bootstrap.sh   # Calls the setup scripts for the individual configs and executes them.
-# /etc            # Central location for the system configurations.
-# /install        # Installation script to pull in the entire library (CAUTION)
-```
-
-
-
-
-
-Configuration
--------------
-
-### Terminal
-
-#### Bash
- * Profiles
-
-
-
-Developer
----------
-
-Rye Miller
- * [Website](http://ryemiller.io)
- * [Twitter](https://twitter.com/ryemiller)
- * [Github](https://github.com/iods)
-
-
-Acknowledgments
-----------------
- * [Ed Heltzel](https://github.com/edheltzel)
- * [Paul Irish]
-
-
-License
--------
-
-MIT
-
-
-Copyright
----------
-
-Copyright (c) 2022, Rye Miller
-
-
 <!-- TITLE -->
 <p align="center"><img src="https://avatars.githubusercontent.com/u/75049740?s=200&v=4" height="130"  alt=""/></p>
-<h1 align="center">NodeJS Docker Images for the DSCR</h1>
-<p align="center">NodeJS environments available through the Dark Society Container Registry</p>
+<h1 align="center">Dotfiles</h1>
+<p align="center">An experimental, ongoing collection of scripts and configurations for my commonly used terminal apps and shells.</p>
 <!-- END: TITLE -->
 
 <!-- BADGES -->
@@ -131,7 +35,7 @@ Copyright (c) 2022, Rye Miller
 
 <!-- SUMMARY -->
 <p align="center">
-  <a href="#why-use-dark-society-images">Why use the DSCR?</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#why-use-dotfiles">Why use the DSCR?</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#getting-started">Getting Started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#usage">What's inside?</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#development">Developers</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -141,25 +45,26 @@ Copyright (c) 2022, Rye Miller
 <!-- END: SUMMARY -->
 
 
-### Description
 
-The images are a starting point for NodeJS applications available through the Dark Society Cloud. They provide a bedrock for running scalable
-and reliable containers for any size application. Additionally, they have been architected with [Node's list of best practices]() insuring
-security and dependability are a constant priority.
+### Introduction
+
+A real attempt at environment zen :neckbeard:
 
 > Why was the ***Docker*** container frustrated?... cuz it didn't ***Node*** what it needed... xD
 
 
-## TL;DR
+Facts
+-----
 
-```sh
-$ docker run --rm gcr.io/darksociety-containers/node:14-alpine node
-```
+* Version 0.1.0
+* [Repository](https://github.com/iods/dotfiles)
 
-### Docker Compose
-```sh
-$ curl -link > docker-compose.yml
-$ docker-compose up -d
+
+TL;DR
+-----
+
+```shell
+curl -fsSL https://raw.githubusercontent.com/iods/dotfiles/install | bash
 ```
 
 
@@ -167,14 +72,13 @@ Table of Contents
 -----------------
 
 - [Getting Started](#getting-started)
-  - [Why use Dark Society images](#why-use-dark-society-images)
+  - [Why use Dotfiles](#why-use-dotfiles)
   - [Features](#features)
   - [Supported Versions](#supported-versions)
 - [Usage](#usage)
   - [Built With](#built-with)
   - [How to use this image](#pulling-the-image)
 - [Development](#wrench-development)
-  - [Example Dockerfile for Your Project]()
   - [Environment](#environment)
   - [Scripts](#scripts)
 - [Running Tests](#running-tests)
@@ -195,11 +99,16 @@ These instructions will get you a copy of the project up and running on your loc
 testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 
-### Why use Dark Society Images?
+### Why use Dotfiles?
+
 * Code in containers provides reproducibility and dependability local environments cannot provide.
 * Close to app dependencies
 * size
 * do me a favor
+
+### Background
+
+Good developers put time and thought into their workspaces.
 
 ### Features
 
@@ -210,13 +119,74 @@ testing purposes. See deployment for notes on how to deploy the project on a liv
 
 > Cuz I am trying to be cool
 
+
+### References
+ * [Awesome dotfiles](https://project-awesome.org/webpro/awesome-dotfiles)
+ * [What do you use to manage your dotfiles?](https://news.ycombinator.com/item?id=11070797)
+ * [Dotfiles:automating macOS system configuration](https://kalis.me/dotfiles-automating-macos-system-configuration/)
+ * [Using Dotfiles for Productivity](https://www.twilio.com/blog/using-dotfiles-productivity-bootstrap-systems)
+ * [Homebrew](https://speakerdeck.com/anahkiasen/a-storm-homebrewin)
+ * [Zero to Hero with Dotfiles](https://code.tutsplus.com/tutorials/setting-up-a-mac-dev-machine-from-zero-to-hero-with-dotfiles--net-35449)
+ * [Mathais Bynens](https://github.com/mathiasbynens/dotfiles)
+ * [Github Dots](https://dotfiles.github.io/)
+ * [What is a Dotfile and How to Create it?](https://www.freecodecamp.org/news/dotfiles-what-is-a-dot-file-and-how-to-create-it-in-mac-and-linux)
+
+Configuration and setups for each project.
+
 ### Supported Versions
 
 * [`1.0`, (Dockerfile)](link)
 
 
-Usage
------
+
+
+
+
+
+
+
+
+
+
+
+
+Acknowledgments
+----------------
+ * [Ed Heltzel](https://github.com/edheltzel)
+ * [Paul Irish]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Installation & Usage
+--------------------
+
+Be careful. This wipes any current setup. Backup any existing configuration files.
+
+```shell
+$ curl -fsSL https://raw.githubusercontent.com/iods/dotfiles/install | bash
+```
+Re-open the terminal.
+
+### Contents
+
+```shell
+# /bin            # Binaries and scripts to support various tasks.
+# /bootstrap.sh   # Calls the setup scripts for the individual configs and executes them.
+# /etc            # Central location for the system configurations.
+# /install        # Installation script to pull in the entire library (CAUTION)
+```
+
 ### Built With
 
 * [Git](https://git-scm.org) - Version Control
@@ -344,8 +314,16 @@ Use the [Discussions]() area on Github for this.
 Authors
 -------
 
+
+Developer
+---------
+
+Rye Miller
+ * [Website](http://ryemiller.io)
+ * [Twitter](https://twitter.com/ryemiller)
+ * [Github](https://github.com/iods)
+
 * **Rye Miller** - *Initial work* - [@iods](https://github.com/iods)
-* **Tiffany Creamer** - *Initial work* - [@tnondairy](https://github.com/iods)
 
 See also the list of [contributors](https://github.com/thedarksociety/docker-node/contributors) who participated in this project.
 
@@ -355,20 +333,14 @@ Notable Changes
 
 
 ### [2021-04-14]
- * Added some templates for repo documentation
- * Updated packages in builds for Alpine 14, 15
- * Release of v1.0
-
-
-### [2020-11-27]
- * Added versions 10, 12, 14, and 15 to the DSCR
+ * one
+ * two
 
 
 Contributing
 ------------
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
 
 Known Issues
 ------------
@@ -381,8 +353,16 @@ License
 
 This project is licensed :memo: under the MIT License - see the [LICENSE](LICENSE) file for details
 
+
+Copyright
+---------
+
+Copyright (c) 2022, Rye Miller
+
 ---
+
 
 <h4 align="center">
   Built with 💙 By <a href="https://github.com/iods">@iods</a>
 </h4>
+
