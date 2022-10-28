@@ -53,13 +53,6 @@ An experimental, ongoing collection of scripts and configurations for my commonl
 > TIL that dotfiles being hidden were ostensibly a UNIXv2 mistake.
 
 
-Facts
------
-
-* Version 0.1.0
-* [Repository](https://github.com/iods/dotfiles)
-
-
 TL;DR
 -----
 
@@ -76,11 +69,7 @@ Table of Contents
   - [Features](#features)
   - [Supported Versions](#supported-versions)
 - [Usage](#usage)
-  - [Built With](#built-with)
-  - [How to use this image](#pulling-the-image)
 - [Development](#wrench-development)
-  - [Environment](#environment)
-  - [Scripts](#scripts)
 - [Running Tests](#running-tests)
 - [Deployment](#deployment)
 - [Resources](#resources)
@@ -96,28 +85,25 @@ Getting Started
 ---------------
 
 These instructions will get you a copy of the project up and running on your local machine for development and 
-testing purposes. See deployment for notes on how to deploy the project on a live system.
+testing purposes.
+
+***Work In Progress***
 
 
 ### Why use Dotfiles?
 
-* Code in containers provides reproducibility and dependability local environments cannot provide.
-* Close to app dependencies
-* size
 * do me a favor
+
 
 ### Background
 
 Good developers put time and thought into their workspaces.
 
+
 ### Features
 
-* Drops you into the REPL [WIP]
-* Dumb inits, uses container as an executable
-* Includes some basic needs that the other node does not come w/
-* Is hosted through the DSCR
-
-> Cuz I am trying to be cool
+* On
+* two
 
 
 ### References
@@ -135,8 +121,7 @@ Configuration and setups for each project.
 
 ### Supported Versions
 
-* [`1.0`, (Dockerfile)](link)
-* 
+* [`1.0`] Initial Release
 
 
 Installation & Usage
@@ -158,36 +143,7 @@ Re-open the terminal.
 # /install        # Installation script to pull in the entire library (CAUTION)
 ```
 
-### Built With
-
-* [Git](https://git-scm.org) - Version Control
-* [Docker](http://docker.io) - Infrastructure/Deployments
-* [NodeJS](http://www.nodejs.org/) - Server-Side Applications
-* [GCR]() - Google Cloud (Container Registry)
-
-
-### What can I use them for?
-
-Apps.
-
-### Pulling the Image
-
-The recommended way to get the Node image is to pull it from the DSCR (currently private). If
-you do not have access, you can fork and use or become a customer!
-
-```bash
-$ docker pull gcr.io/darksociety-containers/node:14-alpine
-```
-
-> For a specific version, use any of the above referenced tags.
-```bash
-$ docker pull gcr.io/darksociety-containers/node:[TAG]
-```
-
-> Optionally, you can build the image yourself.
-```bash
-$ docker build -t darksociety-containers/node 'linktorepo'
-```
+***Work In Progress***
 
 
 Development
@@ -204,62 +160,12 @@ Using Github CLI
 $ gh repo clone thedarksociety/docker-node
 ```
 
-### Example Dockerfile for Your Project
-Make sure to add .node_modules to your .dockerignore file so it is not sent to daemon.
-
-Use multi-stage builds to bring the size down a bit. Install modules w/ full build, then
-create and install application w/ slim build.
-
-```Dockerfile
-# Build/Install Stage
-FROM gcr.io/darksociety-containers/node:14-alpine
-
-COPY package*.json yarn-lock.json .
-
-# Install any dependencies
-RUN apk add --no-cache python3
-
-# Now install
-RUN yarn ci --prod
-```
-
-### Environment
-
-| Package | Description |
-| ------- | ----------- |
-| bash | For getting things consistent across flavors. |
-| dumb-init | Setting up a Node init for simplification. |
-| make | Manages the build and install stages of the containers. |
-| git | For obvious reasons. |
-| sudo | For obvious reasons.|
-
-
-### Scripts
-
-| Script | Description |
-| ------- | ----------- |
-| docker-entrypoint.sh | Configuration and initiation for the container. |
-| docker-healthcheck.js |Confirm the container is running and in a healthy state.|
-
+***Work In Progress***
 
 Running Tests
 -------------
 
-You can run tests with Docker Compose for each version.
-
-
-### With Docker Compose
-
-Run all tests with the following command in the project directory:
-```bash
-$ docker-compose -f tests/docker-compose.14-alpine.yml up -d
-```
-
-### From the CLI
-
-```bash
-$ docker run 
-```
+***Work In Progress***
 
 
 Deployment
@@ -331,6 +237,7 @@ Copyright
 ---------
 
 Copyright (c) 2022, Rye Miller
+
 
 ---
 
