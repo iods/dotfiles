@@ -7,6 +7,11 @@
 #
 # echo "Loaded [8] last."
 
+
+#
+# F
+#
+
 # find a file in the current dir who's name matches provided string
 function ff() {
   find . -name "$@"
@@ -37,6 +42,17 @@ function fs() {
   fi
 }
 
+
+#
+# H
+#
+
+# tell me what to eat i am too hungry to decide
+function hungry() {
+  echo "Freddys,Applebees,Nothing,Jersey Mikes,Arbys" | tr ',' '\n' | gshuf | head -1;
+}
+
+
 # make directory and immediately change into it
 function mkd() {
   mkdir -p "$@" && cd "$_" || exit
@@ -58,3 +74,8 @@ function search() {
 function trash() {
   (mv "$@" "${HOME}/.Trash")
 }
+
+
+#
+# U
+#

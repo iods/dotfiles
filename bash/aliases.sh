@@ -95,6 +95,7 @@ alias stfu='osascript -e "set volume output muted true"'
 alias tits='growlnotify -a "Activity Monitor" "System error" -m "Testing this."'
 alias trimcopy="tr -d '\n' | pbcopy"
 alias updot='printf "Updating dotfiles."'
+alias updots='source ~/.updates | tee ~/dotfiles/getupdates.log'
 
 
 #
