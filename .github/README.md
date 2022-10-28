@@ -1,43 +1,43 @@
 <!-- TITLE -->
 <p align="center"><img src="https://avatars.githubusercontent.com/u/75049740?s=200&v=4" height="130"  alt=""/></p>
 <h1 align="center">Dotfiles</h1>
-<p align="center">An experimental, ongoing collection of scripts and configurations for my commonly used terminal apps and shells.</p>
+<p align="center">A real attempt at environment zen :neckbeard:</p>
 <!-- END: TITLE -->
 
 <!-- BADGES -->
 <p align="center">
   <!-- license -->
-  <a href="./LICENSE" alt="license: MIT">
-    <img src="https://img.shields.io/badge/license-MIT-026AA7.svg?style=flat-square"  alt=""/>
+  <a href="./LICENSE" alt="license: GNU">
+    <img src="https://img.shields.io/github/license/iods/dotfiles"  alt=""/>
   </a>
   <!-- maintained-->
-  <a href="https://github.com/thedarksociety/docker-node/graphs/commit-activity" alt="Maintenance">
-    <img src="https://img.shields.io/badge/maintained%3F-yes-026AA7.svg?style=flat-square"  alt=""/>
+  <a href="https://github.com/iods/dotfiles/graphs/commit-activity" alt="Maintenance">
+    <img src="https://img.shields.io/maintenance/yes/2016"  alt=""/>
   </a>
   <!-- version -->
-  <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/tag/thedarksociety/docker-node?style=flat-square&color=026AA7">
+  <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/tag/iods/dotfiles?style=flat-square&color=026AA7">
   <!-- pull requests -->
-  <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/issues-pr/thedarksociety/docker-node?style=flat-square&color=1EAE72">
+  <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/issues-pr/iods/dotfiles?style=flat-square&color=1EAE72">
   <!-- github issues -->
-  <a href ="https://img.shields.io/github/workflow/status/iods/docker-node/build">
-    <img src="https://img.shields.io/github/issues-raw/thedarksociety/docker-node.svg?maxAge=25000&style=flat-square"  alt=""/>
+  <a href ="https://github.com/iods/dotfiles/issues">
+    <img src="https://img.shields.io/github/issues-raw/iods/dotfiles.svg?maxAge=25000&style=flat-square"  alt=""/>
   </a>
   <!-- developer github -->
-  <a href ="https://img.shields.io/github/workflow/status/iods/docker-node/build">
+  <a href ="https://github.com/iods">
     <img src="https://img.shields.io/badge/GitHub-iods-181717.svg?style=flat-square&logo=github"  alt=""/>
   </a>
   <!-- github stars --> 
-  <a href="https://github.com/thedarksociety/docker-node/stargazers">
-    <img alt="GitHub stars" src="https://img.shields.io/github/stars/thedarksociety/docker-node?style=social">
+  <a href="https://github.com/iods/dotfiles/stargazers">
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/iods/stargazers?style=social">
   </a>
 </p>
 <!-- END: BADGES -->
 
 <!-- SUMMARY -->
 <p align="center">
-  <a href="#why-use-dotfiles">Why use the DSCR?</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#why-use-dotfiles">Why use Dotfiles?</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#getting-started">Getting Started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#usage">What's inside?</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#usage">What's Inside?</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#development">Developers</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#authors">Authors</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#license">License</a>
@@ -48,9 +48,9 @@
 
 ### Introduction
 
-A real attempt at environment zen :neckbeard:
+An experimental, ongoing collection of scripts and configurations for my commonly used terminal apps and shells.
 
-> Why was the ***Docker*** container frustrated?... cuz it didn't ***Node*** what it needed... xD
+> TIL that dotfiles being hidden were ostensibly a UNIXv2 mistake.
 
 
 Facts
@@ -136,36 +136,7 @@ Configuration and setups for each project.
 ### Supported Versions
 
 * [`1.0`, (Dockerfile)](link)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Acknowledgments
-----------------
- * [Ed Heltzel](https://github.com/edheltzel)
- * [Paul Irish]
-
-
-
-
-
-
-
-
-
-
-
-
+* 
 
 
 Installation & Usage
@@ -303,6 +274,11 @@ Resources
 * [Dark jsDK](https://github.com/iods/js-dark) - A JavaScript Project using the Docker Node Image
 * [Congruence](https://github.com/thedarksociety/congruence-standards)
 * [Developer Standards](https://github.com/GalvanizeOpenSource/developer-standards)
+* Acknowledgments
+* [Ed Heltzel](https://github.com/edheltzel)
+* [Paul Irish]
+
+
   
 
 Frequently Asked Questions
@@ -313,10 +289,6 @@ Use the [Discussions]() area on Github for this.
 
 Authors
 -------
-
-
-Developer
----------
 
 Rye Miller
  * [Website](http://ryemiller.io)
@@ -341,6 +313,7 @@ Contributing
 ------------
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
 
 Known Issues
 ------------
