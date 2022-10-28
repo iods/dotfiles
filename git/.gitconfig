@@ -1,0 +1,338 @@
+[advice]
+    statusHints = false
+
+
+# command aliases for git (handled separately of bash aliases)
+# aliases prefaced with a ! will be treated as commands
+# add the git helpers aliases too
+[alias]
+    aa = add --all .
+    amend = commit --amend --reuse-message=HEAD
+
+
+    # get description
+    branches = branch -avv
+    br = branch
+    brr = branch --sort=-committerdate
+    bump = "commit --allow-empty -m 'CI bump'"
+    buu = branch --unset-upstream
+
+    # get description
+    cam = commit -am
+    ci = commit
+    civ = commit -v
+    co = checkout
+    contrib = shortlog --summary --numbered
+    cp = cherry-pick
+    cr = clone --recursive
+
+    # get description
+    dc = diff --cached
+    deleted = '!git ls-files --deleted'
+    df = diff --color --color-words --abbrev
+    dfw = diff --word-diff
+    dfn = diff --name-only
+    dfno = diff --name-only origin/master
+    disregard = update-index --assume-unchanged
+    dissused = '!git ls-files -v | grep ^[a-z] || echo "None"'
+
+    f = fetch --tags --force --prune
+
+	g = grep --break --heading --line-number
+    graph = log --graph --full-history --date=short --color --date-order --pretty=tformat:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s%x20%x1b[33m(%an)%x1b[0m%x20%x1b[31m(%aD)"
+
+    # get description
+    head = "!git r -1"
+
+    # ignore untracked files in this specific repo
+    is-it-just-me = "!$EDITOR .git/info/exclude"
+
+    # get description
+    l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    ll = log --pretty=oneline --graph --abbrev-commit
+    ld = "!sh -c \"git log --since '${1:-1} days ago' --oneline --author $(git config user.email)\" -"
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+    lgp = log -p
+    lgs = log --stat
+    lm = log --pretty=format:'* %s (%h)'
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    ls = ls-files
+    lt = "!git tag | sort -n -t. -k1,1 -k2,2 -k3,3"
+
+    modified = '!git ls-files --modified'
+    mov = branch -m
+
+    new = untracked
+
+    # TODO: get description
+    patch = '!git --no-pager diff --no-color'
+    pro = '!hub pr show || hub browse'
+    p = push
+	pf = push --force
+    pr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+
+    r = "!GIT_NO_PAGER=1 git log"
+    regard = update-index --no-assume-unchanged
+    ri = rebase -i
+    rio = '!git f && git rebase -i origin/master'
+
+    # view the working tree in short format
+    s = status -s
+    show-ignored = "! git clean -ndX | perl -pe 's/Would remove/Ignored:/'"
+    skip = update-index --skip-worktree
+    skipped = !git ls-files -v | grep \"^S\"
+    stag = "!git tag | sort -n -t. -k1,1 -k2,2 -k3,3 -k4,4"
+	stl = ls-files -m -o --exclude-standard
+	sts = status -sb
+
+    # get description
+    unskip = update-index --no-skip-worktree
+    unstage = reset --hard HEAD
+    untracked = '!git ls-files --others --exclude-standard'
+    up = "!git fetch --tags --force --prune && hub sync"
+
+    # show the email for the current repository
+    whoami = config user.email
+    wipe = '!git reset --hard HEAD && git clean -fd'
+
+
+
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    pager = auto
+    status = auto
+    # ui = true
+    ui = auto
+[color "branch"]
+    current = yellow reserve
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+
+
+
+[commit]
+    # gpgsign = true
+    status = false
+    template = ~/.config/.gitmessage
+
+
+
+[core]
+    attributesFile = ~/.config/git/attributes
+    autocrlf = input
+    editor = vim # ? code --wait
+    excludesfile = $HOME/.config/git/ignoretemplate
+    filemode = false
+    ignorecase = false
+    pager = diff-so-fancy | less --tabs=4 -RFX
+
+    # prevents the showing of files whose names contain un-versioned, non-ASCII symbols
+    # http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
+    precomposeunicode = false
+
+    quotepath = false
+
+    # makes `git rebase` safer on macOS
+    # http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/
+    trustctime = false
+
+	untrackedCache = true
+
+	# treat spaces before tabs and all kinds of trailing whitespace as an error
+    # [default] trailing-space: looks for spaces at the end of a line
+    # [default] space-before-tab: looks for spaces before tabs at the beginning of a line
+    # whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+    whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+
+
+[credential]
+    helper = osxkeychain
+    # helper = cache --timeout=3600
+[credential "https://source.developers.google.com"]
+	helper = gcloud.sh
+
+
+
+[delta]
+    line-numbers = true
+    syntax-theme = Nord
+
+
+
+[diff]
+    colorMoved = default
+    indentHeuristic = true
+    # whether and how Git detects renames, defaults to true
+    # copies = also will detect copies
+    renames = copies
+    renameLimit = 8192
+    # renameLimit = 999999
+    submodule = log
+    tool = # ?
+
+
+
+[difftool]
+    prompt = false
+
+
+
+[fetch]
+    prune = true
+
+
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[filter "media"]
+    clean = git-media-clean %f
+    smudge = git-media-smudge %f
+
+
+[gc]
+    auto = 0
+
+
+
+[gist]
+    browse = true
+    private = true
+
+
+
+# github details
+[github]
+    user = iods
+
+
+
+[grep]
+    lineNumber = true
+
+
+
+[help]
+	autocorrect = 1
+
+
+[hub]
+    protocol = https
+    # user = nonrational
+    user = iods
+
+
+[include]
+    path = ~/.gitconfig.local
+
+
+
+[init]
+    # https://github.blog/2020-07-27-highlights-from-git-2-28/#introducing-init-defaultbranch
+    defaultBranch = develop
+    templateDir = ~/.config/git/template
+
+
+[log]
+    date = iso-local
+    decorate = auto
+
+
+[merge]
+    conflictstyle = diff3
+    ff = false
+    keepBackup = false
+    log = true
+    prompt = true
+    tool = # ?
+
+
+
+[mergetool]
+	keepBackup = false
+	prompt = false
+
+
+
+[mergetool "meld"]
+	cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
+
+
+
+[pager]
+    blame = delta
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+
+
+
+[pull]
+    rebase = false
+
+
+[push]
+    autoSetupRemote = true
+    default = simple
+    # default = current
+    followTags = true
+    verbose = true
+
+
+
+[rebase]
+	instructionFormat = (%an <%ae>) %s
+
+
+
+[status]
+    short = true
+    relativePaths = true
+
+
+
+[url "git@github.com:"]
+	insteadOf = "gh:"
+	pushInsteadOf = "github:"
+	pushInsteadOf = "git://github.com/"
+[url "git://github.com/"]
+	insteadOf = "github:"
+[url "git@gist.github.com:"]
+	insteadOf = "gst:"
+	pushInsteadOf = "gist:"
+	pushInsteadOf = "git://gist.github.com/"
+[url "git://gist.github.com/"]
+	insteadOf = "gist:"
+# Any GitHub repo with my username should be checked out r/w by default
+# http://rentzsch.tumblr.com/post/564806957/public-but-hackable-git-submodules
+[url "git@github.com:iods/"]
+  insteadOf = "git://github.com/iods/"
+
+
+# user information for determining the commit object's author details
+[user]
+    name = Rye Miller
+    email = millerrye17@mgail.com
+    signingkey = # ?
+
+

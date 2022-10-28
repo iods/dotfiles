@@ -1,0 +1,261 @@
+# Editors{{{
+
+## Vim template
+Session.vim
+
+## VisualStudioCode template
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+## Sublime-github package stores a github token in this file
+# https://packagecontrol.io/packages/sublime-github
+GitHub.sublime-settings
+# }}}
+
+# Frameworks {{{
+
+# Hugo {{{
+
+.hugo_build.lock
+# }}}
+# }}}
+
+# Language spesific {{{
+
+# Python {{{
+
+# Virtual env
+.venv/
+
+# Sqlite db
+*.sqlite3
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Sphinx documentation
+docs/_build/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+# }}}
+
+# Node {{{
+node_modules/*
+# }}}
+# }}}
+
+# OS X {{{
+
+.history
+.DS_Store
+*.DS_Store
+.AppleDouble
+.LSOverride
+# }}}
+
+# Private {{{
+.pri/
+*-pri
+*_private
+# }}}
+
+# Temporary {{{
+
+tmp/
+.tmp/
+.netrwhist
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Auto-generated tag files
+tags
+tags.*
+
+# Dump file
+*.stackdump
+
+# logs
+*.log
+logs/
+
+# Archive
+archive/
+.archive/
+# }}}
+
+# Terraform  {{{
+
+# https://github.com/github/gitignore/blob/master/Terraform.gitignore
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+
+# Exclude all .tfvars files, which are likely to contain sentitive data, such as
+# password, private keys, and other secrets. These should not be part of version
+# control as they are data points which are potentially sensitive and subject
+# to change depending on the environment.
+#
+*.tfvars
+
+# Ignore override files as they are usually used to override resources locally and so
+# are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Include override files you do wish to add to version control using negated pattern
+#
+# !example_override.tf
+
+# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
+# example: *tfplan*
+*tfplan*
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+# }}}
+
+
+
+
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.idea/
+.vscode
+.vagrant/
+
+
+
+
+
+
+# Python compiles files
+*.py[co]
+__pycache__
+
+# Text editors
+*~
+._*
+*.swp
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
+
+# NPM
+node_modules
+npm-debug.log
+
+# OS X files and direcotries
+.DS_Store
+.AppleDouble
+.LSOverride
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
