@@ -1,0 +1,62 @@
+#!/bin/sh
+#####################
+## tsleep - Time Sleep for OS X Systems
+##
+## Wait a specified amount of hours, minutes, and seconds. Then, sleep the system.
+##
+## Example Usage:
+## user@osxhost$ tsleep 3m 4H 400s 70m
+## System will sleep in : 5h:19m:39s
+##
+#####################
+
+#
+_hms()
+{
+    local S=${1}
+    ((h=S/3600))
+    ((m=S%3600/60))
+    ((s=S%60))
+    printf "%dh:%dm:%ds\n" $h $m $s
+}
+
+countdown ()
+{
+    if [[ $1 = *[![:digit:]]* ]]; then
+        echo "Usage: countdown (seconds) [label]";
+        return;
+    fi;
+
+    message=$2
+    if [ "x$message" == "x" ]; then
+        message="Remaining Time"
+    fi
+
+    local t=$1 remaining=$1;
+    SECONDS=0;
+    while sleep .2; do
+        printf '\r'"$message"': '"`_hms $remaining`"' ';
+        if (( (remaining=t-SECONDS) <=0 )); then
+            break;
+        fi;
+    done
+    printf '\rCountdown complete.                        \n';
+}
+
+max_seconds=0
+
+while [[ $# -gt 0 ]]; do
+    _scale=${1//[0-9]/}
+    _time=${1//[^0-9]/}
+    case $_scale in
+        [Hh] ) (( max_seconds=max_seconds+(60*60*$_time) )); ;;
+        [Mm] ) (( max_seconds=max_seconds+(60*$_time) )); ;;
+        [Ss] ) (( max_seconds=max_seconds+($_time) )); ;;
+        "" ) (( max_seconds=max_seconds+($_time) )); ;;
+        ? ) echo "Nerds! Invalid time scale specified. ($1)" && exit 1;;
+    esac
+    shift
+done
+
+countdown $max_seconds "System will sleep in "
+osascript -e 'tell application "System Events" to sleep'

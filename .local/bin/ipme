@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# Returns my IP address.
+#
+
+set -o errexit
+
+curl -sf https://ipinfo.io/ip
+echo
