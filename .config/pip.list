@@ -1,0 +1,13 @@
+Jinja2
+Pillow
+PyFLP
+PyYAML
+autopep8
+black
+bpython
+feedgen
+pip
+py-gfm
+pylint
+requests
+virtualenv
