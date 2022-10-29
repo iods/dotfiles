@@ -1,9 +1,0 @@
-#!/bin/sh
-
-port=$1
-
-if [ "`uname`" == "Darwin" ]; then
-    lsof -i TCP:$port
-elif [ "`uname`" == "Linux" ]; then
-    netstat -anp | grep $port
-fi
