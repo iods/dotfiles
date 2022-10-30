@@ -1,3 +1,7 @@
+"gvim is where all the GUI-specific startup commands should be placed. it is sourced after vimrc
+"gvimrc can be used for like menus and other non-default values
+
+
 " go to previous window
 imap <D-Up> <Esc><C-W>ka
 nmap <D-Up> <C-W>k

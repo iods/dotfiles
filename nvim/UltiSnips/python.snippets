@@ -1,0 +1,98 @@
+# override existing snippets from UltiSnips
+priority 1
+
+snippet logger "logger" b
+import logging
+
+logging.basicConfig(
+	level=logging.INFO,
+	format="[%(asctime)s] [%(levelname)-7s] : %(message)s",  # short
+	# format="[%(asctime)s] [%(levelname)-7s] [%(module)s %(name)s (%(lineno)d)] : %(message)s",  # long
+	datefmt="%Y-%m-%d %H:%M:%S %z",
+)
+logger = logging.getLogger(__name__)
+
+
+$0
+endsnippet
+
+snippet logi "log info" b
+logger.info(f"{$1 = }")
+$0
+endsnippet
+
+snippet logcur "log currency" b
+logger.info(f"$1{$2:,.2f}")
+$0
+endsnippet
+
+
+snippet shebang "shebang" b
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
+
+$0
+endsnippet
+
+snippet bp "breakpoint" b
+breakpoint()$0
+endsnippet
+
+snippet pycur "pytest current mark" b
+@pytest.mark.current$0
+endsnippet
+
+snippet richtrace "rich traceback" b
+import rich.traceback
+rich.traceback.install(show_locals=True)
+
+$0
+endsnippet
+
+snippet timerun "timerun helper func" b
+def timerun(func):
+	""" Calculate the execution time of a method and return it back"""
+	import functools
+	import time
+
+	@functools.wraps(func)
+	def wrapper(*args, **kwargs):
+		start = time.perf_counter()
+		result = func(*args, **kwargs)
+		duration = time.perf_counter() - start
+		msg = f"Duration of {func.__name__} function was {duration} sec"
+
+		try:
+			logger.info(msg)
+		except NameError:
+			print(msg)
+
+		return result
+
+	return wrapper
+$0
+endsnippet
+
+snippet debugmethod "debug method  helper func" b
+def debugmethod(func):
+	""" Debug a method and return it back"""
+	import functools
+
+	@functools.wraps(func)
+	def wrapper(*args, **kwargs):
+		result = func(*args, **kwargs)
+
+		try:
+			logger.info(f'Calling : {func.__name__}')
+			logger.info(f'args: {args} - kwargs: {kwargs}')
+			logger.info(f'{func.__name__} returned {result}')
+		except Exception:
+			print(f'Calling : {func.__name__}')
+			print(f'args: {args} - kwargs: {kwargs}')
+			print(f'{func.__name__} returned {result}')
+
+		return result
+	return wrapper
+$0
+endsnippet

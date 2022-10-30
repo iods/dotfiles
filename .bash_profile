@@ -6,7 +6,9 @@
 #
 # Load all my dotfile needs, please.
 # .bash_profile is loaded in login shells.
-
+# # .bash_profile is loaded in login shells (also see .bashrc).
+[[ -s ~/.profile ]] && source ~/.profile
+[[ -s ~/.bashrc ]] && source ~/.bashrc
 # if not running interactively, don't do anything
 [ -z "${PS1}" ] && return
 

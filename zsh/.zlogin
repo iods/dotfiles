@@ -8,7 +8,42 @@
 # 	fi
 # fi
 
+
+# run every zsh login
+
+# start hugo server for journal
+# Moved to system.d
+# if [ -f $HOME/.functions ]; then
+# 	if ! pgrep -x "hugo" >/dev/null; then
+# 		hugo-start
+# 	fi
+# fi
+
+# NOT NEEDED for now. Commented out.
+# start docker compose for redis
+# if [ $(docker inspect -f '{{.State.Running}}' localredis) = false ]; then
+# 	echo "redis compose starting..."
+# 	redis-start
+# fi
+
 Initial Setup 🎉
+
+# Execute code that does not affect the current session in the background.
+{
+  # Compile the completion dump to increase startup speed.
+  dump_file="$HOME/.zcompdump"
+  if [[ "$dump_file" -nt "${dump_file}.zwc" || ! -s "${dump_file}.zwc" ]]; then
+    zcompile "$dump_file"
+  fi
+
+  # Set environment variables for launchd processes.
+  if [[ "$OSTYPE" == darwin* ]]; then
+    for env_var in PATH MANPATH; do
+      launchctl setenv "$env_var" "${(P)env_var}" 2>/dev/null
+    done
+  fi
+} &!
+
 
 
 1. Getting Started

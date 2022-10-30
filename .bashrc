@@ -4,36 +4,47 @@
 #  ||___|||___|||___|||___|
 #  |/___\|/___\|/_ _\|/___\
 #
-# # ~/.bashrc: executed by bash(1) for non-login shells.
+# # ~/.bashrc: executed by bash(1) for non-login shells (also see .bash_profile).
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc) for examples
 
-[ -n "$PS1" ] && source "${HOME}"/.bash_profile
+# [ -n "$PS1" ] && source "${HOME}"/.bash_profile
 
-# If not running interactively, don't do anything
+# Test for an interactive shell.  There is no need to set anything past this point
+# for scp and rcp, and it's important to refrain from outputting anything in those cases.
 case $- in
-  *i*)
-  ;;
-  *) return
-  ;;
+  *i*) ;; # shell is non-interactive.  be done now.
+    *) return ;;
 esac
-# send a slack through terminal
 
-# {{{ Initial check
+# Quickly source available files.
+# For settings on different machines, see .local.bashrc (i.e. PS1="[\u@\h \W]\$ ")
+function source_file() {
+  local file
+  file="${1}"
 
-# Test for an interactive shell.  There is no need to set anything
-# past this point for scp and rcp, and it's important to refrain from
-# outputting anything in those cases.
-if [[ $- != *i* ]] ; then
-  # Shell is non-interactive.  Be done now!
-  return
-fi
-
-# }}}
+  [[ -f "${file}" ]] && . "${file}"
+}
 
 
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+    xterm*|rxvt*)
+        # Remove the directive once shellcheck is upgraded
+        # shellcheck disable=SC1117
+        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+        ;;
+    *)
+        ;;
+esac
 
 
-
+# Add tab completion for SSH hostnames based on ~/.ssh/config
+# ignoring wildcards
+[[ -e "$HOME/.ssh/config" ]] && complete -o "default" \
+	-o "nospace" \
+	-W "$(grep "^Host" ~/.ssh/config | \
+	grep -v "[?*]" | cut -d " " -f2 | \
+	tr ' ' '\n')" scp sftp ssh
 
 # sourced on new screens, non-login shells.
 # echo sourcing .bashrc
@@ -41,38 +52,45 @@ fi
 host=`uname -n | sed -e 's/\.lan$//g' -e 's/\.local$//g'`;
 platform=`uname`;
 
+# append and reload the history after each command
+# Taken from https://metaredux.com/posts/2020/07/07/supercharge-your-bash-history.html
+PROMPT_COMMAND="history -a; history -n"
+
+
 export HISTIGNORE="[   ]*:&:bg:fg:exit"
+# Prepend history entries with timestamps
+export HISTTIMEFORMAT="[%F %T] "
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
-export HISTSIZE=100000                   # big big history
-export HISTFILESIZE=100000               # big big history
+export HISTSIZE=100000                   # big big history ( leave empty for unlimited )
+export HISTFILESIZE=100000               # big big history (leave empty for unlimited )
 shopt -s histappend                      # append to history, don't overwrite it
 
 # Save and reload the history after each command finishes
 # export PROMPT_COMMAND="$PROMPT_COMMAND; \history -a;"
 
-# do close spelling matches with cd
+# Autocorrect typos in path names when using `cd`
 shopt -s cdspell
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+# shopt -s globstar
+
+# Case-insensitive globbling (used with pathname expansion)
 shopt -s nocaseglob
+
+# Check the window size after each command and, if necessary, update
+# the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# handy aliases
-alias ll='ls -l'
-alias la='ls -hlA'
-alias l='ls'
-alias rm='rm -v'
-alias df='df -h'
-alias du='du -h'
-alias grep="grep --color"
-alias hist="history|tail"
-alias psa="ps auxwww"
 
-alias prpg="LC_CTYPE=C tr -dc 'A-Za-z0-9_-' < /dev/urandom | fold -w 16 | head -n1"
 
-alias pry-watch='while clear && sleep 1; do pry-remote -w; done'
+# Enable some Bash 4 features when possible:
+# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * Recursive globbing, e.g. `echo **/*.txt`
+for option in autocd globstar; do
+	shopt -s "$option" 2> /dev/null
+done
 
-#aliases for my local stuff
-alias ddate="date '+%Y%m%d%'"
-alias cdate="date '+%Y%m%d%H%M%S'"
 
 rpg(){
     size=${1:-12}; ruby -e "require 'securerandom'; puts SecureRandom.urlsafe_base64($size);"
@@ -95,15 +113,35 @@ reset_known_host() {
     fi
 }
 
-# if there are settings for a particular machine, put them in .local.bashrc
-# i.e. PS1="[\u@\h \W]\$ "
-source_if_exists() {
-  [[ -s "$1" ]] && source "$1"
-}
+
+# Set SSH to use gpg-agent
+unset SSH_AGENT_PID
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+	if [[ -z "$SSH_AUTH_SOCK" ]] || [[ "$SSH_AUTH_SOCK" == *"apple.launchd"* ]]; then
+		SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+		export SSH_AUTH_SOCK
+	fi
+fi
+
+# # We do this before the following so that all the paths work.
+# for file in ~/.{bash_prompt,aliases,functions,path,dockerfunc,extra,exports}; do
+# 	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
+# 		# shellcheck source=/dev/null
+# 		source "$file"
+# 	fi
+# done
+# unset file
 
 source_if_exists "$HOME/.bashrc.${platform}"
 source_if_exists "$HOME/.bashrc.${host}"
 source_if_exists "$HOME/.local/.bashrc"
+# source ~/.bash/path.sh
+# source ~/.bash/env.sh
+# source ~/.bash/completion.sh
+#
+# source ~/.bash/aliases.sh
+# source ~/.bash/functions.sh
+# source ~/.bash/prompt.sh
 
 # set +x
 # exec 2>&3 3>&-
@@ -155,7 +193,14 @@ uber_prompt "\h:\W"
 
 
 
-
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+	xterm*|rxvt*)
+		PS1="\\[\\e]0;${debian_chroot:+($debian_chroot)}\\u@\\h: \\w\\a\\]$PS1"
+		;;
+	*)
+		;;
+esac
 
 
 # {{{ Includes

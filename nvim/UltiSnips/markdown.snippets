@@ -1,0 +1,234 @@
+# override existing snippets from UltiSnips
+priority 1
+
+snippet sec "Section" b
+# ${1:Section Name} #
+$0
+endsnippet
+
+snippet timestamp "timestamp in ISO8601 and unix" b
+`date +%Y-%m-%dT%H:%M:%S%z` | `date +%s` $0
+endsnippet
+
+snippet ** "Bold" b
+**$1** $0
+endsnippet
+
+snippet * "italic" b
+*$1* $0
+endsnippet
+
+############
+# Journal  #
+############
+
+snippet todayDate "Today for Journal" b
+## `date +%d` `date +%b` | `date +%a` | `date +%w`
+$0
+endsnippet
+
+snippet journal "Journal Start Elements" b
+## `date +%d` `date +%b` | `date +%a` | `date +%w`
+
+### Review
+
+
+### ImBox
+
+- [ ]
+
+### memento
+
+$0
+
+endsnippet
+
+snippet meta "Metadata for Subtitles/Subjects" b
+
+- time : `date +%Y-%m-%dT%H:%M:%S%z` | `date +%s`
+- rate : #${1:6}/10
+- tags : $2
+- link : $3
+
+$0
+endsnippet
+
+snippet 2 "2# or ##" b
+
+
+## $1
+
+
+$0
+endsnippet
+
+
+snippet 3 "3# or ###" b
+### $1
+$0
+endsnippet
+
+snippet 4 "4# or ####" b
+#### $1
+$0
+endsnippet
+
+snippet ncal "print ncal into buffer" b
+:read !ncal -w
+endsnippet
+
+snippet com "comment insert" b
+<!-- ${1:Comment} -->
+$0
+endsnippet
+
+# TODO: with ${VISUAL} like in
+# https://github.com/honza/vim-snippets/blob/master/UltiSnips/markdown.snippets
+snippet fold "fold insert" b
+<!-- ${1:Comment} \{\{\{${2:Level} -->
+$0
+endsnippet
+
+################
+# Common stuff #
+################
+snippet link "Link to something"
+[${1:${VISUAL:Text}}](${2:https://})$0
+endsnippet
+
+# emdash
+snippet emdash "emdash" b
+— $1
+endsnippet
+
+
+# Code Blocks
+################
+
+# cbl general
+snippet cbl "Codeblock" b
+\`\`\`$1
+$2
+\`\`\`
+
+$0
+endsnippet
+
+# cbl for bash
+snippet cbb "Codeblock Bash" b
+\`\`\`bash
+\$ $1
+\`\`\`
+
+$0
+endsnippet
+
+# cbl for python
+snippet cbp "Codeblock Python" b
+\`\`\`python
+$1
+\`\`\`
+
+$0
+endsnippet
+
+# cbl for golang
+snippet cbg "Codeblock Golang" b
+\`\`\`go
+$1
+\`\`\`
+
+$0
+endsnippet
+
+# cbl for javascript
+snippet cbj "Codeblock Javascript" b
+\`\`\`javascript
+$1
+\`\`\`
+
+$0
+endsnippet
+
+################
+#    GoHugo    #
+################
+# hugo-notice
+snippet hugo-notice "hugo notice {note, warning, tip, info}" b
+{{< notice $1 >}}
+$2
+{{< /notice >}}
+
+$0
+endsnippet
+
+# shortcode
+snippet hugo-shortcode "Hugo shortcode" b
+{{< $1 >}}
+$0
+endsnippet
+
+# tweet shortcode
+snippet hugo-tweet "Hugo tweet shortcode" b
+{{< tweet $1 >}}
+$0
+endsnippet
+
+# relref anchor
+snippet hugo-relref-anchor "relref for #anchors" b
+[$1]({{< relref "#$2" >}})
+$0
+endsnippet
+
+snippet hugo-date "Add date for Hugo Front Matter" b
+date = "`date +%Y-%m-%d`T`date +%T`" $0
+endsnippet
+
+# Highlight Lines for Code Snippets
+# Example
+# ```go {linenos=table,hl_lines=[8,"15-17"],linenostart=199}
+# // ... code
+# ```
+snippet hugo-linenos "Highlight Line Numbers" b
+\`\`\`$1 {linenos=table,hl_lines=[$2]}
+$3
+\`\`\`
+
+$0
+endsnippet
+
+# Highlight Lines for Code Snippets, Same as hugo-linenos
+# Example
+# ```go {linenos=table,hl_lines=[8,"15-17"],linenostart=199}
+# // ... code
+# ```
+snippet cblh "Codeblock Highlight Line Numbers" b
+\`\`\`$1 {linenos=table,hl_lines=[$2]}
+$3
+\`\`\`
+
+$0
+endsnippet
+
+snippet hugo-ad "Hugo AdSense shortcode" b
+{{< adsense/inarticle  >}} $0
+endsnippet
+
+
+#####################
+#   Zettelkasten    #
+#####################
+
+snippet front "Front Matter for Zettelkasten" b
++++
+date = "`date +%Y-%m-%d`T`date +%T`+03:00"
+title = "$0"
+tags = [
+"$1",
+]
+categories = [
+"${2:resources}",
+]
++++
+
+endsnippet

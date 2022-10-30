@@ -1,0 +1,199 @@
+# ls {{{
+
+# Defaults
+# alias l='ls -CF'
+# alias la='ls -lA'
+# alias ll='ls -ahlF'
+
+# lsd
+# https://github.com/Peltoche/lsd
+# In order to use lsd first check if exists
+if hash lsd 2>/dev/null; then
+    alias ls='lsd'
+    alias l='lsd -l'
+    alias la='lsd -lA'
+    # tree
+    alias lt='lsd --tree'
+    alias lat='lsd -lA --tree'
+    # space
+    alias las='lsd -lA --total-size'
+    alias lats='lsd -lA --tree --total-size'
+fi
+
+# show all files
+alias lsf='ls -p | grep -v /'
+# show all symbolic links
+alias fln='ls -la . | grep "\->"'
+# show all regular files
+alias laf='ls -lAhp | grep -v /'
+# watch
+alias wad='watch -d ls -lAh'
+# }}}
+
+# alert {{{
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+# }}}
+
+# System {{{
+
+## undollar
+alias '$'=''  # Copy-pasting commands with '$ ' prefix
+
+# shutdown,sleep
+alias shutdown='logout-sync && sudo shutdown -h now'
+alias sleep='systemctl suspend'
+
+## apt
+alias remove-package='sudo apt remove --purge "$1" && sudo apt autoremove --purge'
+### maintenance
+alias update='sudo -- sh -c "apt update -y; apt list --upgradable"'
+alias update-upgrade='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y"'
+
+## clean
+alias clean-thrash='rm -rf ~/.local/share/Trash/*'
+alias clean-screenshots='rm ${HOME}/Pictures/{Screenshot,screenshot_}*'
+alias erase='shred –vfzu –n 5'
+
+# Fan
+alias fan='mono /opt/nbfc/nbfc.exe status -a'
+
+# Network
+alias wifi-restart='nmcli radio wifi off && nmcli radio wifi on'
+alias wired-restart='service network-manager restart'
+
+## pid
+alias list-pids='ps aux > pid.list && nvim pid.list'
+
+## monitor
+alias monitor="python3.9 -m bpytop"
+
+# dirs
+# alias mkcd='makecd(){mkdir -p "$1"; cd "$1"}; makecd'
+alias cdg='cd-gitroot'
+
+# print all and ignore .git and .venv dir
+alias tree='tree -aI ".git|.venv"'
+
+# source zsh
+alias sz='exec zsh'
+alias ez='exec zsh'
+
+# https://askubuntu.com/a/22043
+alias sudo='sudo '
+# }}}
+
+# Vim ( ({
+
+alias vi='nvim'
+alias vs='nvim -S'
+# to remove error E138: ShaDa file exist, cannot write ShaDa file!
+alias rm-shada='rm ~/.local/share/nvim/shada/main.shada.tmp.x'
+alias lv='lvim'
+alias lvs='lvim -S'
+# }) )
+
+# Apps {{{
+
+# use insiders as default
+# alias code='code-insiders'
+
+alias postman='~/apps/postman/Postman\ Agent/Postman\ Agent > /dev/null 2>&1 &'
+
+# https://github.com/FiloSottile/age
+# aliased to sudo apt from oh-my-zsh (?)
+unalias age
+# }}}
+
+# git {{{
+# additional git aliases to zsh git plugin
+
+alias gac='git add . && git commit'
+# Initial empty commit for repos
+alias gie='git init && git commit --allow-empty -m "Initial commit"'
+alias giec='gie'
+# Visualize git branch tree
+alias glvb='git log --graph --simplify-by-decoration --pretty=format:'%d' --all'
+# List tracked files by git
+alias gtf='git ls-tree -r $(git_current_branch) --name-only'
+# Stash
+alias gstu='git stash -u'
+alias gstum='git stash save -u -m'
+# }}}
+
+# tmux {{{
+
+alias ta='tmux a -t'
+alias tls='tmux ls'
+alias tka='tmux kill-server'
+alias tks='tmux kill-session -t'
+alias sw='start-workspace'
+# }}}
+
+# docker {{{
+
+alias dps='docker ps'
+alias dpsa='docker ps -a'
+# }}}
+
+# kubernetes - k8s {{{
+
+alias karf='kubectl apply -R -f'
+alias kak='kubectl apply -k'
+alias kgao='kubectl get all -A > /tmp/output.log ; nvim /tmp/output.log'
+# }}}
+
+# python {{{
+#
+# ${PYTHON} from .zshenv
+
+alias p='${PYTHON}'
+alias pp='${PYTHON} -m pip'
+
+# Interactive
+alias pi='${PYTHON} -m IPython -i'
+alias pid="${PYTHON} -m ipdb -c continue"
+alias pib='${PYTHON} -m bpython -i'
+
+# django {{{
+alias pm="${PYTHON} manage.py"
+alias pdm="${PYTHON} -m ipdb -c continue manage.py"
+# }}}
+# }}}
+
+# Utilities {{{
+
+# display $paths line by line
+alias paths='print -rl $path'
+# oldie
+alias sedpath='sed "s/ /\n/g" <<< "$path"'
+
+# local bins
+alias theme='~/.local/bin/toggle-theme'
+alias airplane='~/.local/bin/toggle-airplane'
+
+# disk usage
+alias space='du -hx -d 1'
+alias space-sorted='f() {du -hx -d 1 "$1" | sort -hr}; f'
+# }}}
+
+# VM {{{
+
+alias mp='multipass'
+# }}}
+
+# Others {{{
+
+alias cmatrix='cmatrix -Baf'
+alias umatrix='unimatrix -a -f -b -s 96 -l m'
+alias matrix='gnome-terminal --full-screen -- /bin/bash -c "unimatrix -a -f -b -s 96 -l m;read"'
+alias unix='unix-print'
+alias ncal='ncal -w'
+# symstem in ASCII art terminal
+## take screenshot
+alias nfs='neofetch -S'
+# images
+alias webify="mogrify -resize 690\> *.png"
+# }}}

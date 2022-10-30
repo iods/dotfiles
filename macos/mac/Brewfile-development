@@ -1,0 +1,35 @@
+tap "homebrew/cask-fonts"
+
+# Golang
+brew "go"
+
+# Rust
+brew "rust"
+
+# Erlang
+brew "erlang"
+brew "rebar3"
+
+# Scala
+brew "coursier/formulas/coursier"
+
+# Python
+brew "python"
+
+# Jsonnet
+brew "jsonnet"
+
+# Development Environment
+cask "visual-studio-code"
+cask "open-in-code"
+cask "kdiff3"
+cask "font-firacode-nerd-font"
+cask "font-ibm-plex"
+cask "font-3270-nerd-font"
+
+# FPGA Development
+cask "gtkwave"
+brew "verilator"
+
+# Misc
+cask "arduino-ide"

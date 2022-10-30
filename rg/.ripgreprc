@@ -1,0 +1,20 @@
+# Add my 'web' type.
+--type-add
+web:*.{html,css,js}*
+
+# Disable for vim :Files
+# --color=always
+
+--hidden
+
+# linked files
+--follow
+
+# Searches case insensitively if the pattern is all lowercase. Search case
+# sensitively otherwise.
+--smart-case
+
+--glob=!.git/*
+
+# all ignore-related filtering with the --no-ignore flag
+# --no-ignore

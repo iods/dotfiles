@@ -7,3 +7,38 @@ hardstatus string "%{= .W}%-w%{..r}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
 nethack on
 defscrollback 5000
 startup_message off
+
+# no welcome message
+startup_message off
+
+# 256 colors
+attrcolor b ".I"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+defbce on
+term xterm-256color
+
+# huge scrollback buffer
+defscrollback 5000
+
+# Turn off that annoying start up message
+startup_message off
+
+# get rid of silly xoff stuff
+bind s split
+
+# switch windows with F3 (prev) and F4 (next)
+bindkey "^[OR" prev
+bindkey "^[OS" next
+
+# Turn the even more annoying whole-screen-flash-on-tab-complete "feature"
+vbell off
+
+# I use control+a for beginning-of-line, this remaps it to the tick/tilda key
+#escape ``
+
+# Bind tick+e to show the tick character since tick+tick is too convenience to toggle windows
+#escape `e
+
+# Window list at the bottom. hostname, centered tabs and redmarked active windows:
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d/%m %{W}%c %{g}]'

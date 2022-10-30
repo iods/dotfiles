@@ -1,0 +1,846 @@
+#!/usr/bin/env bash
+#
+#		     __			         _   _
+#		    / _|_   _ _ __   ___| |_(_) ___  _ __  ___
+#		   | |_| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+#		   |  _| |_| | | | | (__| |_| | (_) | | | \__ \
+#		   |_|	\__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+#
+# Author: Serhat Teker <serhat.teker@gmail.com>
+# Source: https://github.com/SerhatTeker/dotfiles
+# License: https://github.com/SerhatTeker/dotfiles/LICENSE
+#
+# to handle more complex tasks than alias
+
+# Common {{{
+
+__is_macos() {
+    local uname="$(uname -a)"
+
+    if [[ "$uname" =~ Darwin ]]; then
+        return
+    fi
+
+    false
+}
+
+__is_linux() {
+    local uname="$(uname -a)"
+
+    if [[ "$uname" =~ Linux ]]; then
+        return
+    fi
+
+    false
+}
+# }}}
+
+# Apps {{{1
+# ----------------------------------------------------------------------------#
+
+# Toggle Telegram On/Off
+telegram() {
+    if pgrep Telegram; then
+        pkill Telegram
+    else
+        nohup ${APPS}/Telegram/Telegram >/dev/null 2>&1 &
+    fi
+}
+
+# night light mode. only for linux
+toggle-night() {
+    is_linux || return 0
+    CURRENT=$(gsettings get org.gnome.settings-daemon.plugins.color night-light-enabled)
+    if $CURRENT; then
+        gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false
+    else
+        gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
+    fi
+}
+
+# Close annoying Chrome's Restore Popup
+# https://raspberrypi.stackexchange.com/a/89705
+clean-chrome() {
+    local chrome_preferences="${XDG_CONFIG_HOME}/google-chrome/Default/Preferences"
+
+    sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' "${chrome_preferences}"
+    sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' "${chrome_preferences}"
+}
+
+# Toggle Chrome mode
+chrome-toggle() {
+    # Run only in linux
+    is_linux || return 0
+    chrome-clean
+
+    local target_mode=${1?"Usage: chrome_toggle light|dark"}
+    local file="${HOME}/.local/share/applications/google-chrome.desktop"
+    local default='\/usr\/bin\/google-chrome-stable'
+    local dark='\/usr\/bin\/google-chrome-stable --force-dark-mode --enable-features=WebUIDarkMode,CSSColorSchemeUARendering'
+
+    if [[ ${target_mode} =~ "light" ]]; then
+        sed -i "s/${dark}/${default}/" ${file}
+    else
+        sed -i "s/${default}/${dark}/" ${file}
+    fi
+}
+
+# Launch Google Chrome with forced dark mode
+chrome-dark() {
+    nohup \
+        google-chrome-stable \
+        --force-dark-mode \
+        --enable-features=WebUIDarkMode,CSSColorSchemeUARendering \
+        >/dev/null 2>&1 &
+}
+
+# Kill and restart ActivityWatch process
+aw-reboot() {
+    pkill -f aw
+    nohup ~/apps/activitywatch/aw-qt >/dev/null 2>&1 &
+}
+# }}}1
+
+# Dirs {{{1
+
+# Open DIR
+# run it in the background
+f() {
+    # if $1 empty open $HOME
+    # -w to open it in a new window
+    if [ -z "$1" ]; then
+        nohup nautilus -w "$HOME" >/dev/null 2>&1 &
+    else
+        nohup nautilus -w "$1" >/dev/null 2>&1 &
+    fi
+}
+
+# cd then ll
+cdl() {
+    builtin cd "$@" && ls -ahlF
+}
+
+# make dir then cd
+mkcd() {
+    mkdir -p "${1}" && cd "$1" || return 1
+}
+
+# alias : cd $DIR then run nvim -s
+cv() {
+    local dir="${1:-$HOME}"
+
+    # Define and use shortcut alias
+    if [ "$dir" = "dot" ]; then
+        local dir=$DOTFILES
+    elif [ "$dir" = "bak" ]; then
+        local dir=$SYSTEM_BAK
+    fi
+
+    builtin cd "${dir}" && nvim -S
+    # builtin cd "$@" && nvim -S
+}
+
+# alias : cd $DIR then run lvim
+cl() {
+    cd "${1}" && lvim
+}
+
+# }}}1
+
+# Files {{{1
+# ----------------------------------------------------------------------------#
+
+# Replace whitespaces with underscores`_` in filename(s)
+# Provide directory or single filename
+replace_spaces() {
+    local arg=$1
+
+    # Replace all files in the directory
+    if [[ -d ${arg} ]]; then
+        for file in ${arg}/*; do
+            mv ${file} ${file// /_}
+        done
+    # Single file
+    elif [[ -f ${arg} ]]; then
+        mv ${arg} ${arg// /_}
+    else
+        echo "Provided ${arg} is not valid"
+        exit 1
+    fi
+}
+
+add-file-suffix-all() {
+    find . -type f -not -name "*.$1" -exec mv "{}" "{}.$1" \;
+}
+
+delete-file-part() {
+    suffix=$1
+    delete_part="$2"
+
+    for filename in *.$suffix; do
+        [ -f "$filename" ] || continue
+        mv "$filename" "${filename//$delete_part/}"
+    done
+}
+
+# move only files
+mvf() {
+    find "${1}" -maxdepth 1 -type f -exec mv {} "${2}"  \;
+}
+
+# Comment a line in a file matching a (regex) pattern
+uncomment() {
+    local pattern="${1}"
+    local file="${2}"
+
+    sed -i "/${pattern}/s/^#*\s*//g" "${file}"
+}
+
+# Uncomment a line in a file matching a (regex) pattern
+comment() {
+    local pattern="${1}"
+    local file="${2}"
+
+    sed -i "/${pattern}/s/^/#/g" "${file}"
+}
+# }}}1
+
+# Git {{{1
+# ----------------------------------------------------------------------------#
+
+# Outputs the name of the current branch
+# Usage example: git pull origin $(git_current_branch)
+# Using '--quiet' with 'symbolic-ref' will not cause a fatal error (128) if
+# it's not a symbolic ref, but in a Git repo
+git-current-branch() {
+    local ref
+    ref=$(command git symbolic-ref --quiet HEAD 2>/dev/null)
+    local ret=$?
+    if [[ $ret != 0 ]]; then
+        [[ $ret == 128 ]] && return # no git repo.
+        ref=$(command git rev-parse --short HEAD 2>/dev/null) || return
+    fi
+    echo ${ref#refs/heads/}
+}
+
+# sync upstream fork with local
+git-sync-fork() {
+    # Fetch all branches of remote upstream
+    # Rewrite master with upstream’s master using git rebase:
+    git fetch upstream &&
+        git rebase upstream/master
+}
+
+# Delete given local and remote branch
+# Usage:
+# $ git-prune-branch your-branch
+# $ git-prune-branch your-branch upstream
+# TODO: Improve with autocompletion function
+git-prune-branch() {
+    local branch="${1}"
+    local remote="${2:-origin}"
+
+    # Ensure with taking prompt
+    msg_cli yellow \
+        "This will delete your local and remote branch <${branch}>. Are you sure? (y/n)" \
+        normal
+    read -r opt
+    case ${opt} in
+    y* | Y* | "")
+        git branch -D ${branch}
+        git push -d ${remote} ${branch}
+        ;;
+    n* | N*) msg_cli red "Deleting ${branch} cancelled." normal ;;
+    *) msg_cli red "Please type y/Y or n/N" normal ;;
+    esac
+}
+
+# Git checkout a pull request locally
+# Usage: `$ ghpr 8` where 8 is the number of pull request
+ghpr() {
+    local pr=$1
+    local remote=${2:-origin}
+
+    echo "Fetching the pull request${pr}"
+    git fetch ${remote} refs/pull/${pr}/head:pr/${pr}
+
+    echo "PR fetched, creating a branch"
+    echo "Checking out to a new PR branch"
+    git checkout pr/${pr}
+
+    echo "PR Branch Created"
+}
+
+# Download all files from a github gist url
+# Usage Example: $ ddl-gist 'https://gist.github.com/7fee6d84f2f3d16ef3628e9a4a7f57e7' ~/Downloads/gists
+ddl-gist() {
+    if [ $# -ne 2 ]; then
+        echo 'Failed. Syntax: $> ddl-gist GITHUB_GIST_URL DOWNLOAD_PATH'
+        return
+    fi
+
+    gist_url=$1
+    download_path=$2
+
+    echo '[*] Getting all GIST File URLs from '$gist_url
+
+    gists=$(curl -ksL -H 'User-Agent: Mozilla/5.0' $gist_url | grep '<a\ .*href=".*/raw/' | sed 's/.*a\ .*href="//' | sed 's/".*//')
+    echo '[*] Downloading all files'
+
+    for lines in $(echo $gists | xargs -L1); do
+        if [ ! -z $lines ]; then
+            echo $lines
+            gistfile=$(echo $lines | sed 's/.*\///')
+            save_as=$download_path"/"$gistfile
+            echo "Downloading URL: https://gist.github.com"$lines
+            echo "to "$save_as"....."
+            wget -c -O $save_as "https://gist.github.com"$lines
+        fi
+    done
+}
+# }}}
+
+# Journal {{{1
+# ----------------------------------------------------------------------------#
+
+# journal in vim
+journal() {
+    # Show current journal
+    WNUMBER=$(date +%U)
+    YNUM=$(date +%y)
+    echo "JOURNAL: y${YNUM}/w${WNUMBER}"
+
+    # check journal exist, if not exist create
+    # ~/.local/bin/journal-check
+    journal-check
+}
+# }}}1
+
+# Languages {{{
+
+# Python
+
+# Install python package globally
+# Use 3.8 if $PYTHON_VERSION not set
+pipg() {
+    local py=${PYTHON:-python3} # ${PYTHON} comes from .zshenv
+    PIP_REQUIRE_VIRTUALENV=false ${py} -m pip "${@}"
+}
+
+# If a virtualenv with name of .venv, load it.
+auto-venv() {
+    local venv="./.venv"
+
+    if [ -z "$VIRTUAL_ENV" ]; then
+        if [ -d ${venv} ]; then
+            source ${venv}/bin/activate
+        fi
+    fi
+}
+
+_pretty_errors_venv() {
+    local venv="${1:-./.venv}"
+    venv_python=$(python -c "import sys; print(f'python{sys.version_info.major}.{sys.version_info.minor}')")
+    local file="${venv}/lib/${venv_python}/site-packages/usercustomize.py"
+
+    cat <<EOF >>${file}
+try:
+    import pretty_errors
+except ImportError:
+    print(
+        "You have uninstalled pretty_errors but it is still present in your python startup."
+        + "  Please remove its section from file:\n "
+        + __file__
+        + "\n"
+    )
+else:
+    pretty_errors.configure(
+        arrow_head_character="^",
+        arrow_tail_character="-",
+        display_arrow=True,
+        display_locals=True,
+        line_number_first=False,
+        lines_after=3,
+        lines_before=5,
+        truncate_code=True,
+        name="custom",
+    )
+EOF
+    echo "Pretty errors added"
+}
+
+# Add rich traceback
+# https://rich.readthedocs.io/en/stable/traceback.html#automatic-traceback-handler
+_rich_traceback_venv() {
+    local venv="${1:-./.venv}"
+    venv_python=$(python -c "import sys; print(f'python{sys.version_info.major}.{sys.version_info.minor}')")
+    local file="${venv}/lib/${venv_python}/site-packages/sitecustomize.py"
+
+    cat <<EOF >>${file}
+from rich.traceback import install
+install(show_locals=True)
+EOF
+    echo "Rich traceback added"
+}
+
+# Logical conditions:
+# 0. If not already in virtualenv:
+# 0.1. If virtualenv already exists activate it,
+# 0.2. If not create it with global packages, update pip then activate it
+# 1. If already in virtualenv: just warn
+#
+# Usage:
+# Without arguments it will create virtualenv named `.venv` with `python3.8` version
+# $ ve
+# or for a specific python version
+# $ ve python3.9
+# or for a specific python version and environment name;
+# $ ve python3.9 ./.venv-diff
+ve() {
+    local py=${1:-$PYTHON} # ${PYTHON} comes from .zshenv
+    local venv="${2:-./.venv}"
+    local bin="${venv}/bin/activate"
+
+    # If not already in virtualenv
+    # $VIRTUAL_ENV is being set from $venv/bin/activate script
+    if [ -z "${VIRTUAL_ENV}" ]; then
+        if [ ! -d ${venv} ]; then
+            echo "Creating and activating virtual environment ${venv}"
+            ${py} -m venv ${venv} --system-site-package
+            echo "export PYTHON=${py}" >>${bin} # Overwrite ${PYTHON} on .zshenv
+            source ${bin}
+            echo "Upgrading pip"
+            ${py} -m pip install --upgrade pip
+        else
+            echo "Virtual environment  ${venv} already exists, activating..."
+            source ${bin}
+        fi
+    else
+        echo "Already in a virtual environment!"
+    fi
+}
+
+# Reactivate virtual environment
+rv() {
+    local venv="${1:-./.venv}"
+    local bin="${venv}/bin/activate"
+
+    # If not already in virtualenv
+    # $VIRTUAL_ENV is being set from $venv/bin/activate script
+    if [ -n "${VIRTUAL_ENV}" ]; then
+        echo "Reactivating ${venv} virtualenv..."
+        deactivate &&
+            source "${bin}"
+    fi
+}
+
+# TODO: Don't work with PIP_REQUIRE_VIRTUALENV even inside venv
+#
+# Create venv with latest pip
+# https://stackoverflow.com/a/61553959/10802538
+# https://stackoverflow.com/a/60217751/10802538
+veo() {
+    local py=${PYTHON:-python3} # ${PYTHON} comes from .zshenv
+    local venv="./.venv"
+
+    if [ ! -d ${venv} ]; then
+        echo "Creating venv..."
+
+        if ! $py -m venv ${venv} \
+            --without-pip \
+            --system-site-packages; then
+            echo "ERROR: Problem creating venv" >&2
+            return 1
+        else
+            local whl=$($py -c "import pathlib, ensurepip; whl = list(pathlib.Path(ensurepip.__path__[0]).glob('_bundled/pip*.whl'))[0]; print(whl)")
+            echo "Boostrapping pip using $whl"
+            ${venv}/bin/python $whl/pip install --upgrade pip setuptools wheel
+            source ${venv}/bin/activate
+        fi
+    else
+        echo "venv already exists, activating..."
+        source ${venv}/bin/activate
+    fi
+}
+# }}}
+
+# Network {{{1
+# ----------------------------------------------------------------------------#
+
+myip() {
+    curl ifconfig.me
+}
+# }}}1
+
+# Other {{{1
+# ----------------------------------------------------------------------------#
+
+# get last apt-get update date
+info-update-last() {
+    ls -lt --time-style="long-iso" /var/log/apt | grep -o '\([0-9]\{2,4\}[- ]\)\{3\}[0-9]\{2\}:[0-9]\{2\}' -m 1
+}
+
+history-statistic() {
+    #A one-liner allows us to see our most used commands
+    history |
+        awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' |
+        grep -v "./" | column -c3 -s " " -t | sort -nr | nl | head -n10
+}
+# }}}1
+
+# Security {{{1
+# ----------------------------------------------------------------------------#
+
+# encrypt given file
+# must cd into dir first
+# TODO: dir agnostic
+enc-file() {
+    cat "$1" | gpg --armor --output "$1.gpg" --symmetric --cipher-algo AES256
+}
+
+# decrypt given file
+# must cd into dir first
+# TODO: dir agnostic
+dec-file() {
+    gpg --output "$(echo $1 | cut -d '.' -f1).$(echo $1 | cut -d '.' -f2)" --decrypt "$1"
+}
+
+# TODO: Add MacOS
+# Clearn
+clear-clipboard() {
+    __is_linux && {
+        xclip -i /dev/null
+        touch /tmp/blank &&
+            xclip -selection clipboard /tmp/blank
+    }
+}
+# }}}1
+
+# Update {{{1
+# ----------------------------------------------------------------------------#
+
+# Lvim {{{
+
+# helper command for lvim operations
+_lvim_packer_cmd() {
+    "${XDG_BIN_HOME}/lvim" --headless \
+        -c "lua require('lvim.core.log'):set_level([[warn]])" \
+        "${@}"
+}
+
+# Take packer snapshot and sync it with dotfiles copy
+# INFO: Run manually
+# 1) :PackerSync
+# 2) :PackerCompile profile=true
+# 3) :PackerSnapshot default.json
+# 4) lvim_snapshot
+lvim_snapshot() {
+    local cache_snapshot="${XDG_CACHE_HOME}/lvim/snapshots/default.json"
+    local dotfiles_snapshot="${HOME}/dotfiles/lvim/snapshots/default.json"
+
+    # _lvim_packer_cmd "PackerSnapshot default.json" # HACK: NW
+    # ${PYTHON} -m json.tool "${cache_snapshot}" > "${dotfiles_snapshot}"
+    jq --sort-keys . "${cache_snapshot}" >"${dotfiles_snapshot}"
+    msg_success "Snapshot copied to \$DOTFILES"
+}
+alias lvim-snapshot='lvim_snapshot'
+
+# INFO: NW: Look and use lvim_snapshot
+# https://github.com/wbthomason/packer.nvim/issues/751
+lvim_plugins_update() {
+    # Packer bootstrapping, Use LunarVim one below
+    # https://github.com/wbthomason/packer.nvim#bootstrapping
+    # lvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+    # Update/Sync plugins, then compile
+    _lvim_packer_cmd -c 'autocmd User PackerComplete quitall' -c "PackerUpdate"
+    _lvim_packer_cmd -c "PackerCompile profile=true"
+
+    lvim_snapshot
+}
+
+lvim_update() {
+    (cd "${XDG_DATA_HOME}/lunarvim/lvim" &&
+        git pull &&
+        _lvim_packer_cmd -c "LvimUpdate" +"qa")
+
+    # lvim_plugins_update    HACK: NW
+}
+# }}}
+
+# Update NeoVim and LunarVim
+update-editors() {
+    nvim --headless +PlugUpdate +qall
+    lvim_update
+}
+
+# TODO: Add macos
+# Update system and editors
+update_all() {
+    is_linux || exit 1 # Currently just for linux
+
+    sudo apt update &&
+        sudo apt list --upgradable &&
+        omz update &&
+        update-editors &&
+        notify "Updates Completed" "Your system updated successfully!"
+}
+
+# Update and upgrade all
+update_upgrade_all() {
+    update-all
+    sudo apt upgrade -y &&
+        sudo apt dist-upgrade -y &&
+        notify "Upgrade Completed" "Your system upgraded successfully!"
+}
+# }}}1
+
+# Utilities {{{
+
+# General {{{
+
+command_exists() {
+    command -v "$@" >/dev/null 2>&1
+}
+
+notify() {
+    notify-send \
+        -u normal \
+        -t 7500 \
+        -i checkbox-checked-symbolic \
+        "${1}" \
+        "${2}"
+}
+# }}}
+
+# Zip Tar {{{
+
+tar-it() {
+    dirorfile="$1"
+    destination="$1.tar.gz"
+
+    tar -czvf "${destination}" "${dirorfile}"
+
+}
+
+# DEBUG: Fix working with source files
+untar-it() {
+    file="$1"
+    filename="${file%%.*}"
+
+    # alternative to get the filename
+    # filename=$(basename -- "$fullfile")
+    # extension="${filename##*.}"
+    # filename="${filename%.*}"
+
+    tar -xzvf "${file}" "${filename}"
+}
+
+zip-it() {
+    local input="${1}"
+    local output="${1%%.*}.zip"
+
+    if [[ -d "${input}" ]]; then
+        zip -r "${output}" "${input}"
+    elif [[ -f "${input}" ]]; then
+        zip "${output}" "${input}"
+    else
+        echo "${input} is not valid"
+        return 1
+    fi
+}
+
+unzip-it() {
+    zipfile="$1"
+    zipdir=${1%.zip}
+
+    unzip -d "${zipdir}" "${zipfile}"
+}
+
+# Typing extract-it followed by a filename will extract most archives you come
+# across — assuming you have the packages needed to extract that type of archive.
+# https://www.reddit.com/r/linux/comments/2pzgt1/comment/cn1epxc
+extract-it() {
+    if [ -f "${1}" ]; then
+        case "${1}" in
+        *.tar) tar xvf "${1}" ;;
+        *.tar.gz) tar zxvf "${1}" ;;
+        *.gz) gunzip "${1}" ;;
+        *.tgz) tar zxvf "${1}" ;;
+        *.txz) tar xvf "${1}" ;;
+        *.xz) tar xvf "${1}" ;;
+        *.zip) unzip "${1}" ;;
+        *.7z) 7z x "${1}" ;;
+        *.tar.bz2) tar xvjf "${1}" ;;
+        *.tbz2) tar xvjf "${1}" ;;
+        *.bz2) bunzip2 "${1}" ;;
+        *.rar) unrar x "${1}" ;;
+        *.Z) uncompress "${1}" ;;
+        *) echo "Unable to extract <${1}>'" ;;
+        esac
+    else
+        echo "<${1}> is not a valid file"
+    fi
+}
+# }}}
+
+# compare files {{{
+
+# hash two files and compare their hashes
+check-hsum() {
+    echo "$(shasum -a 256 $1)"
+    echo "$(shasum -a 256 $2)"
+    if [[ "$(shasum -a 256 $1 | awk '{print $1}')" == "$(shasum -a 256 $2 | awk '{print $1}')" ]]; then
+        echo "Equal"
+    else
+        echo "NOT equal"
+    fi
+}
+
+# hsum alternative
+ecmp() {
+    if cmp -s "$1" "$2"; then
+        echo "eq"
+    else
+        echo "neq"
+    fi
+}
+# }}}
+
+# Colors {{{
+
+# pick colors in a 256 color terminal
+# http://mywiki.wooledge.org/BashFAQ/037
+colors256() {
+    local c i j
+
+    printf "Colors 0 to 15 for the standard 16 colors\n"
+    for ((c = 0; c < 16; c++)); do
+        printf "|%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
+    done
+    printf "|\n\n"
+
+    printf "Colors 16 to 231 for 256 colors\n"
+    for ((i = j = 0; c < 232; c++, i++)); do
+        printf "|"
+        ((i > 5 && (i = 0, ++j))) && printf " |"
+        ((j > 5 && (j = 0, 1))) && printf "\b \n|"
+        printf "%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
+    done
+    printf "|\n\n"
+
+    printf "Greyscale 232 to 255 for 256 colors\n"
+    for (( ; c < 256; c++)); do
+        printf "|%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
+    done
+    printf "|\n"
+}
+# }}}
+
+# Screenshot {{{
+
+# NOTE: Condsider to separate macos and linux functions
+read-qr() {
+    local file="/tmp/qr.bmp"
+
+    if __is_macos; then
+        screencapture -i "${file}"
+    elif __is_linux; then
+        maim --select "${file}"
+    else
+        exit 1
+    fi
+
+    zbarimg -q --raw "${file}"
+    shred -u "${file}"
+}
+# }}}
+
+# Message {{{
+
+msg() {
+    msg_cli white "${1}" normal
+}
+
+msg_info() {
+    msg_cli blue "INFO: ${1}" normal
+}
+
+msg_success() {
+    msg_cli green "SUCCESS: ${1}" normal
+}
+
+msg_warn() {
+    msg_cli yellow "WARNING: ${1}" normal
+}
+
+msg_error() {
+    msg_cli red "ERROR: ${1}" normal
+}
+# }}}
+# }}}
+
+# Tmux {{{
+
+# tmux resurrect last sessions from resurrect addon
+mux() {
+    pgrep -vx tmux >/dev/null
+    tmux new -d -s delete-me
+    tmux run-shell "${XDG_DATA_HOME}/tmux/plugins/tmux-resurrect/scripts/restore.sh"
+    tmux kill-session -t delete-me
+    tmux attach || tmux attach
+}
+
+# Crate and attach a new session with args
+# Usage:
+# - $ tnew directory
+# - $ tnew session_name session_dir session_window_name
+# default with no arg: session named "new" in ${HOME} dir with window named "main"
+# TODO: Write zsh autocompletion func
+tnew() {
+    if [[ $# -eq 1 ]]; then
+        local session_dir="${1}"
+        # if dir consists ".", split and get first name
+        local session_name=$(echo $(basename ${session_dir}) |
+            awk '{split($session_name, a, "."); print a[1]}')
+        local session_window_name="main"
+    else
+        local session_name="${1:-new}"
+        local session_dir=${2:-~/}
+        local session_window_name="${3:-main}"
+    fi
+
+    tmux new-session \
+        -d \
+        -s ${session_name} \
+        -c ${session_dir} \
+        -n ${session_window_name}
+}
+
+# create dotfiles session in dotfiles dir and open saved nvim session
+tdot() {
+    tmux new-session -d -s dotfiles -c "${HOME}/dotfiles" -n main
+    tmux send-keys -t dotfiles:main "lvim" C-m
+}
+
+# backup last tmux resurrect session and clean the rest
+# when -c|--clean flag provided, clean all sessions but newest
+bak-tmux-resurrect() {
+    local resurrect_sessions="${XDG_DATA_HOME}/tmux/resurrect/sessions"
+    local newest_session="$(ls -lt ${resurrect_sessions}/tmux_*.txt | head -n 1 | awk '{print $11}')"
+
+    mkdir -p "${resurrect_sessions}/bu"
+    # backup newest one
+    cp ${newest_session} "${resurrect_sessions}/bu"
+    cp ${newest_session} "${resurrect_sessions}/last.txt"
+
+    # clean all backups except newest one
+    case "$1" in
+    -c | --clean)
+        ls -lt ${resurrect_sessions}/tmux_*.txt |
+            awk '{if(NR!=1) print $11}' |
+            xargs -i rm {}
+        ;;
+    esac
+}
+# }}}
