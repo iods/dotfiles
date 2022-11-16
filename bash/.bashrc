@@ -9,8 +9,8 @@
 
 # [ -n "$PS1" ] && source "${HOME}"/.bash_profile
 
-# Test for an interactive shell.  There is no need to set anything past this point
-# for scp and rcp, and it's important to refrain from outputting anything in those cases.
+# Test for interactive shell. No need to set anything past this point for scp
+# and rcp, it's important to refrain from outputting anything in those cases.
 case $- in
   *i*) ;; # shell is non-interactive.  be done now.
     *) return ;;
@@ -21,9 +21,31 @@ esac
 function source_file() {
   local file
   file="${1}"
-
   [[ -f "${file}" ]] && . "${file}"
 }
+
+# Quickly source available files if they exist
+function _source_if() {
+  local file
+  file="${1}"
+  [[ -f "${1}" ]] && . "${1}"
+}
+
+
+_source_if "${HOME}/dotfiles/configurations" # [1]
+# history
+# path
+# vars
+# aliases
+# prompt
+# completion
+
+
+# functions
+if [[ -d "${HOME}/dotfiles/bash" ]]; then
+  _source_if "${HOME}/dotfiles/bash/functions.sh"
+fi
+
 
 
 # If this is an xterm set the title to user@host:dir
@@ -45,6 +67,7 @@ esac
 	-W "$(grep "^Host" ~/.ssh/config | \
 	grep -v "[?*]" | cut -d " " -f2 | \
 	tr ' ' '\n')" scp sftp ssh
+
 
 # sourced on new screens, non-login shells.
 # echo sourcing .bashrc

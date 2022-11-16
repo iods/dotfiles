@@ -6,7 +6,17 @@
 #
 # Load all my dotfile needs, please.
 # .bash_profile is loaded in login shells.
-# # .bash_profile is loaded in login shells (also see .bashrc).
+#
+# .bash_profile is loaded in login shells (also see .bashrc).
+
+case $~ in
+  *i*) ;;
+    *) return
+    ;;
+esac
+
+
+
 [[ -s ~/.profile ]] && source ~/.profile
 [[ -s ~/.bashrc ]] && source ~/.bashrc
 # if not running interactively, don't do anything
