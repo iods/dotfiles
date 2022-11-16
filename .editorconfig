@@ -1,0 +1,41 @@
+root = true
+# http://editorconfig.org
+# TODO describe and document the style
+
+[*] # top-level editor settings
+charset = utf-8
+end_of_line = LF
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+max_line_length = 80
+trim_trailing_whitespace = true
+
+[{go.mod,go.sum,*.go}] # Golang files editor settings
+indent_size = 8
+indent_style = tab
+
+[*.{html,css,scss}]
+indent_size = 2
+
+[*.{ini,toml,conf}] # server config settings
+indent_size = 2
+
+[*.{js,json}] # JavaScript, JSON language files editor settings
+indent_size = 2
+
+[{package.json,.travis.yml}] # deploy files editor settings
+indent_size = 2
+
+[*.py] # Python language files editor settings
+# indent_size = 4
+indent_style = tab
+
+[Makefile] # Makefile editor settings
+indent_style = tab
+
+[*.md] # Markdown files editor settings
+trim_trailing_whitespace = false
+
+[*.{yml,yaml}] # YAML files editor settings
+indent_size = 2
