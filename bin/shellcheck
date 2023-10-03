@@ -65,7 +65,12 @@ function main() {
 
 main "$@"
 
-set -o errexit
+set -eu
 
-curl -sf https://ipinfo.io/ip
-echo
+shellcheck() {
+  docker run -it --rm --name="shellcheck" \
+    --volume "$PWD:/mnt" \
+    koalaman/shellcheck:latest "$@"
+}
+
+shellcheck "$@"

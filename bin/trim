@@ -65,7 +65,19 @@ function main() {
 
 main "$@"
 
-set -o errexit
 
-curl -sf https://ipinfo.io/ip
-echo
+set -eo pipefail
+
+trim() {
+  local string="$1"
+
+  # remove leading whitespace
+  string="${string#"${string%%[![:space:]]*}"}"
+
+  # remove trailing whitespace
+  string="${string%"${string##*[![:space:]]}"}"
+
+  echo -n "$string"
+}
+
+trim "$@"

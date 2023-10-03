@@ -1,8 +1,8 @@
 #!bin/bash
-# A short description of the script goes here.
+# Returns what process is the owner of a provided port.
 #
 # Usage:
-#  - <command> [OPTION] [ARG]
+#  - whohas [PORT]
 #
 #   ____  ____  ____  ____
 #  ||i  |||o  |||d  |||s  |
@@ -32,7 +32,7 @@ function usage() {
   Description: Returns what process is the owner of a provided port.
 
   Usage:
-    ${script_name} [PORT]
+    whohas [PORT]
 
   Available Options:
     -h, --help              Print this help menu.
@@ -49,23 +49,25 @@ EOF
   exit 1
 }
 
-function err() {
+function get_owner() {
+  local os
+  local port
+  os="$(uname)"
+  port="${1-}"
 
+  if [[ "${os}" == "Darwin" ]]; then
+    lsof -i TCP:"${port}"
+  elif [[ "${os}" == "Linux" ]]; then
+    netstat -anp | grep "${port}"
+  fi
 }
-
-function func_one() {}
 
 function main() {
   case "${1-}" in
     -h | --help) usage
     ;;
-    *) func_one ;;
+    *) get_owner ;;
   esac
 }
 
 main "$@"
-
-set -o errexit
-
-curl -sf https://ipinfo.io/ip
-echo

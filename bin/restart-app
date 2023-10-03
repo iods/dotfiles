@@ -65,7 +65,9 @@ function main() {
 
 main "$@"
 
-set -o errexit
 
-curl -sf https://ipinfo.io/ip
-echo
+killall Dropbox
+sleep 1;
+open -a ~/Applications/DropboxAlt.app &
+sleep 5;
+open -n -a Dropbox &

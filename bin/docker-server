@@ -65,7 +65,11 @@ function main() {
 
 main "$@"
 
-set -o errexit
+set -eu
 
-curl -sf https://ipinfo.io/ip
-echo
+docker_langserver() {
+  docker run -it --rm --name="docker-langserver" \
+    rcjsuen/docker-langserver:latest docker-langserver "$@"
+}
+
+docker_langserver "$@"

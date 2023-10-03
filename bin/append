@@ -1,0 +1,68 @@
+#!bin/bash
+# Appends the provided text to a file.
+#
+# Usage:
+#  - append [OPTION] [TEXT] [FILE]
+#
+#   ____  ____  ____  ____
+#  ||i  |||o  |||d  |||s  |
+#  ||___|||___|||___|||___|
+#  |/___\|/___\|/_ _\|/___\
+#
+# Version 00.1.2 [2022-10-31]
+# Based on the Google Style Guide: https://google.github.io/styleguide/shell.xml
+
+if ! (return 0 2> /dev/null); then
+  set -o errexit
+  set -o nounset
+  set -o pipefail
+fi
+
+set -o errtrace
+
+function usage() {
+  local script_name
+  script_name="$(basename "$0")"
+
+  cat >&2 <<-EOF
+
+  Command: ${script_name}
+  Description: Appends the provided text to a file after searching and confirming
+    there is no usage of it.
+
+  Usage:
+    ${script_name} [OPTION] [TEXT] [FILE]
+
+  Available Options:
+    -h, --help              Print this help menu.
+    -v|vv|vvv, --verbose    Increase the verbosity of messages.
+
+  Help:
+    Append the text 'this information' to the file 'FILE.txt' in the working directory.
+
+      append 'this information' FILE.txt
+
+    If 'this information' is found, the script will exit.
+
+EOF
+  exit 1
+}
+
+function append() {
+  local append
+  local file
+  append="${1-}"
+  file="${2-}"
+
+  pcregrep -qM "${append}" "${file}" || echo "${append}" >> "${file}"
+}
+
+function main() {
+  case "${1-}" in
+    -h | --help) usage
+    ;;
+    *) append "$@";;
+  esac
+}
+
+main "$@"

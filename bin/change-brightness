@@ -65,7 +65,16 @@ function main() {
 
 main "$@"
 
-set -o errexit
+function brightness() {
+  # Set the same tag so the notification is replaced
+tag=string:x-dunst-stack-tag:brightness
 
-curl -sf https://ipinfo.io/ip
-echo
+# Change volume or mute according to the parameters
+light "$@"
+
+brightness=$(light -G)
+brightness=${brightness%.*}
+
+# Show the brightness notification
+dunstify -a "change-brightness" -h $tag -u low -i display-brightness-symbolic.symbolic -h int:value:$brightness "Brightness: ${brightness}%"
+}

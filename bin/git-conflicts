@@ -65,7 +65,10 @@ function main() {
 
 main "$@"
 
-set -o errexit
+dir=$1
 
-curl -sf https://ipinfo.io/ip
-echo
+if [[ -z $dir ]]; then
+	dir='*'
+fi
+
+grep -Elr '^(<<<<<<< |=======$|>>>>>>> )' $dir | grep -v '^(vendor/)' | grep -v 'node_modules/'

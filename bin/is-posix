@@ -65,7 +65,13 @@ function main() {
 
 main "$@"
 
-set -o errexit
 
-curl -sf https://ipinfo.io/ip
-echo
+set -eo pipefail
+
+is_posix() {
+  local cmd="$1"
+
+  sh -en "$cmd" &>/dev/null
+}
+
+is_posix "$@"

@@ -65,7 +65,23 @@ function main() {
 
 main "$@"
 
-set -o errexit
 
-curl -sf https://ipinfo.io/ip
-echo
+set -e
+
+start_sudo_loop() {
+  password="$1"
+
+  if [ -n "$password" ]; then
+    echo "$password" | sudo -Sv
+  else
+    sudo -v
+  fi
+
+  while true; do
+    sudo -n true
+    sleep 50
+    kill -0 "$$" || sudo -k && exit
+  done 2>/dev/null &
+}
+
+start_sudo_loop "$@"

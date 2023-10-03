@@ -65,7 +65,14 @@ function main() {
 
 main "$@"
 
-set -o errexit
+set -e
 
-curl -sf https://ipinfo.io/ip
-echo
+clip() {
+  if [ $# -eq 0 ]; then
+    xclip -selection clipboard
+  else
+    echo "$*" | xclip -selection clipboard
+  fi
+}
+
+clip "$@"

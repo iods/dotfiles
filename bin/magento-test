@@ -64,8 +64,3 @@ function main() {
 }
 
 main "$@"
-
-set -o errexit
-
-curl -sf https://ipinfo.io/ip
-echo

@@ -65,7 +65,85 @@ function main() {
 
 main "$@"
 
-set -o errexit
+set -eo pipefail
 
-curl -sf https://ipinfo.io/ip
-echo
+get_bash_version() {
+  echo "${BASH_VERSINFO:-0}"
+}
+
+get_bash_version
+
+set -eu
+
+get_distro_id() {
+  distro_id="$(cat /etc/*release | grep -E '^ID=')"
+  distro_id="${distro_id#ID=}"
+
+  echo "$distro_id"
+}
+
+get_distro_id
+
+#!/bin/sh
+
+set -eu
+
+get_latest_github_release() {
+  curl --silent "https://api.github.com/repos/$1/releases/latest" | jq -r .tag_name
+}
+
+get_latest_github_release "$@"
+
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+# utility wrapping neofetch that automatically strips the prefix from it's
+# output, lowercases it, and trims any trailing space
+sysinfo() {
+  local cmd="$1"
+  local output
+
+  output="$(neofetch --off "$cmd" 2> /dev/null)"
+  output="${output##*: }"
+  output="$(lowercase "$output")"
+  output="$(trim "$output")"
+
+  echo "$output"
+}
+
+sysinfo "$@"
+
+
+
+
+cat /sys/class/thermal/thermal_zone0/temp
+
+
+
+
+
+
+
+
+function is_on_ac() {
+    local UNAME_OUT
+    UNAME_OUT="$(uname -s)"
+    if [[ "$UNAME_OUT" == "Darwin" ]]; then
+        if [[ $(pmset -g ps | head -1) =~ "AC Power" ]]; then
+            true
+        else
+            false
+        fi
+    else
+        # Linux
+        # https://askubuntu.com/questions/386949/how-to-check-if-the-ac-laptop-adapter-is-plugged-or-not
+        local ac_adapter
+        ac_adapter=$(acpi -a | cut -d' ' -f3 | cut -d- -f1)
+        if [[ "$ac_adapter" = "on" ]]; then
+            true
+        else
+            false
+         fi
+    fi
+}

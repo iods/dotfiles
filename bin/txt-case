@@ -65,7 +65,31 @@ function main() {
 
 main "$@"
 
-set -o errexit
 
-curl -sf https://ipinfo.io/ip
-echo
+set -e
+
+lowercase() {
+  if [ $# -eq 0 ]; then
+    tr '[:upper:]' '[:lower:]'
+  else
+    echo "$*" | tr '[:upper:]' '[:lower:]'
+  fi
+}
+
+lowercase "$@"
+
+
+
+#!/bin/sh
+
+set -e
+
+uppercase() {
+  if [ $# -eq 0 ]; then
+    tr '[:lower:]' '[:upper:]'
+  else
+    echo "$*" | tr '[:lower:]' '[:upper:]'
+  fi
+}
+
+uppercase "$@"

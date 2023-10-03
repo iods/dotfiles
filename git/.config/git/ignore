@@ -1,0 +1,135 @@
+# ---------------------------------------------------------------------------- #
+# Version 1.1.0 [2016-10-25]
+#
+# Defines the recommended .gitignore globally for repositories.
+#
+#   Project     : Dotfiles
+#   Markup      : .gitignore
+#   Author      : Rye Miller <rye@drkstr.dev>
+#   Version     : 1.2.0
+#   Created     : 2023-06-21
+#   License     : GPLv3
+#   License URL : https://www.gnu.org/licenses/gpl-3.0.html
+#
+# Website:        http://www.ryemiller.io
+# Copyright:      (c) 2023 Rye Miller
+# ---------------------------------------------------------------------------- #
+
+# -------------  Root .ignores  ------------ #
+!CHANGELOG.md
+!CONTRIBUTING.md
+!.gitattributes
+!.gitignore
+# .htaccess
+!/LICENSE
+!/README.md
+!RELEASENOTES.md
+!TODO.md
+
+# -------------  JetBrains IDE  ------------ #
+/.idea/
+
+# Includes content by explicitly telling git
+# what files/dirs you want sourced (be careful)
+!/.idea/copyright
+!/.idea/inspectionProfiles
+!/.idea/modules.xml
+!/.idea/misc.xml
+!/.idea/vagrant.xml
+
+# --------------  File Based  -------------- #
+*iml
+.ipr
+.iws
+
+# ---------------  Composer  --------------- #
+composer.phar
+/vendor/
+
+# ----------------  Vagrant  --------------- #
+/.vagrant/
+
+# --------------  Logs and DB  ------------- #
+!*.sql
+*.sqlite
+
+# -----------  Node JS .ignores  ----------- #
+*.css.map
+/bower_components/
+/.bower-cache
+/.bower-registry
+/.bower-tmp
+/dist/
+/deploy/
+/.grunt
+lib-cov
+*.seed
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.env
+/node_modules/
+npm-debug.log
+/.sass-cache/
+/.sass-cache-imports/
+/.tmp/
+
+# -----------  Windows .ignores  ----------- #
+Desktop.ini
+ehthumbs.db
+/$RECYCLE.BIN
+Thumbs.db
+
+# ------------  Linux .ignores  ------------ #
+*~
+# .*
+
+# -----------  Mac OSX .ignores  ----------- #
+## Mac OSX ##
+._*
+.AppleDouble
+.DS_Store*
+.DS_Store?
+Icon
+.LSOverride
+.Spotlight-V100
+.Trashes
+
+# -----------  Default .ignores  ----------- #
+*.diff
+*.err
+*.log
+*.orig
+*.rej
+*.swo
+*.swp
+*.tgz
+*.vi
+*.zip
+*~*
+
+# ------------  Media .ignores  ------------ #
+*.pict
+*.svg
+*.gif
+*.jpg
+*.swf
+*.fla
+*.flv
+*.psd
+*.png
+*.pdf
+*.TTF
+*.ttf
+*.cdr
+
+# ---------  Additional .ignores  ---------- #
+
+
+composer.lock
+
+# ---------  Additional .ignores  ---------- #
+
+/.vendors/

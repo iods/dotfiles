@@ -1,16 +1,6 @@
-## JetBrains IDE Ignores ##
-/.idea/
-
-## Linux Ignores ##
-# *~
-# .*
-
-## OSX Ignores ##
-._*
 **.DS_Store
-.DS_Store*
-.DS_Store?
-Icon
-.LSOverride
-.Spotlight-V100
-.Trashes
+
+/.idea/*
+/lib/.zfuncs/*
+
+/codebase/*
