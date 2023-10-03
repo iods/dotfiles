@@ -1,0 +1,158 @@
+#!/bin/bash
+#   ____  ____  ____  ____
+#  ||i  |||o  |||d  |||s  |
+#  ||___|||___|||___|||___|
+#  |/___\|/___\|/_ _\|/___\
+#
+# Requires: curl, jq, bc
+#
+# TODO:
+#   - error handling
+#   - color control
+#   - flag to specify an entity_id
+#   - rewrite to use websocket api
+#
+# Version 0.2.0 [2023-06-27]
+# http://github.com/iods/dotfiles
+# Copyright (c) 2023, Rye Miller
+
+set -o errexit  # exit on error
+# set -o nounset  # no unset variables
+set -o pipefail # pipelines cannot hide errors
+
+# set -eEuo pipefail
+#
+
+echo "this is a test"
+echo "and another"
+
+declare SOMEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# # Confirms the running (supported) operating system
+# if [[ "$(uname)" == "Darwin" ]]; then
+# 	echo "this is darwin"
+# else
+# 	echo "this is not"
+# 	echo
+# fi
+
+# echo "whoami: $(whoami)"
+# echo
+
+# # development folder/space for projects
+# CODESPACE="$HOME/Development"
+
+# # current working directory
+# WORK_DIR="$(dirname "$0")"
+# ROOT_DIR="$(cd "$(dirname "$0")" > /dev/null && pwd)"
+# ADDT_ROOT="$(dirname "$BASH_SOURCE")"
+
+
+
+# # how do we update this? just `git pull` the project and complete?
+
+
+
+# if [[ ! -z "$CODESPACE" ]]; then
+# 	# can we have $CODESPACES be set here or does it need to be set somewhere else?
+# 	echo "test"
+# 	echo "$CODESPACE"
+# fi
+
+
+# Installation for dependencies. assumes user is on a linux box
+# also supports MacOSX, but not Windows (open to help)
+# if [[ "$OSTYPE" == "linux-gnu" ]]; then
+# 	echo "linux-gnu"
+# 	# install linux dependencies
+# elif [[ "$OSTYPE" == "darwin" ]]; then
+# 	echo "darwin"
+# 	# install macosx dependencies
+# fi
+
+
+
+
+
+
+
+
+# Finally, go back to where we started.
+# cd "$CODESPACE" > /dev/null || exit 1
+# exit 0
+
+
+
+#######################################
+# Cleanup files from the backup directory.
+# Globals:
+#   BACKUP_DIR
+#   ORACLE_SID
+# Arguments:
+#   None
+#######################################
+function cleanup() {
+  echo "${SOMEDIR}"
+}
+
+#######################################
+# Get configuration directory.
+# Globals:
+#   SOMEDIR
+# Arguments:
+#   None
+# Outputs:
+#   Writes location to stdout
+#######################################
+function get_dir() {
+  echo "${SOMEDIR}"
+}
+
+#######################################
+# Delete a file in a sophisticated manner.
+# Arguments:
+#   File to delete, a path.
+# Returns:
+#   0 if thing was deleted, non-zero on error.
+#######################################
+function del_thing() {
+  rm "$1"
+}
+
+
+# TODO(mrmonkey): Handle the unlikely edge cases (bug ####)
+
+case "${expression}" in
+  a)
+    variable="…"
+    some_command "${variable}" "${other_expr}" …
+    ;;
+  absolute)
+    actions="relative"
+    another_command "${actions}" "${other_expr}" …
+    ;;
+  *)
+    error "Unexpected expression '${expression}'"
+    ;;
+esac
+
+
+# 'Single' quotes indicate that no substitution is desired.
+# "Double" quotes indicate that substitution is required/tolerated.
+
+# Single function
+my_func() {
+  # …
+}
+
+# Part of a package
+mypackage::my_func() {
+  # …
+#}
+
+
+# Constant
+#readonly PATH_TO_FILES='/some/path'
+
+# Both constant and environment
+#declare -xr ORACLE_SID='PROD'

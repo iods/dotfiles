@@ -10,22 +10,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [Unreleased]
 ------------
 
-
-[00.2.0] - 2022-10-31
+[00.2.0] - 2023-05-14
 
 ### Breaking Changes
+ - Install setup.
 
 ### Notable Changes
 
-#### New Additions
+#### Added
 
 #### Bug Fixes
 
 #### Documentation
 
 
+[Released]
+----------
 
 ## [0.1] - 2020-09-13
 
-### Added
+#### Added
  - Initial commit and repo sync.

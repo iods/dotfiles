@@ -1,8 +1,0 @@
-#!/bin/sh
-
-set -eu
-
-readonly BRANCH="$1"
-readonly FILE="$2"
-
-git show "$BRANCH":"$FILE" > "$FILE"

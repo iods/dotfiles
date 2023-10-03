@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# Perform hot backups of Oracle databases.
 #   ____  ____  ____  ____
 #  ||i  |||o  |||d  |||s  |
 #  ||___|||___|||___|||___|
@@ -22,3 +24,5 @@ function getTz() {
         /usr/bin/time $shell -i -c exit;
     done
 }
+
+

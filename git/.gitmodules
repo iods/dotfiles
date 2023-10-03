@@ -1,7 +1,0 @@
-[submodule "plugins/artisan"]
-	path = plugins/artisan
-	url = git@github.com:jessarcher/zsh-artisan.git
-
-[submodule "etc/tomorrow-theme"]
-	path = etc/tomorrow-theme
-	url = https://github.com/chriskempson/tomorrow-theme

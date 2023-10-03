@@ -1,7 +1,0 @@
-# completion!
-for f in $HOME/.bash_completion.d/*.bash; do
-    source $f
-done
-
-complete -F _GetOptPEM shaws
-complete -o default -o nospace -F __fab_completion fab
