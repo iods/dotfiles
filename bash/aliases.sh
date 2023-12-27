@@ -1,40 +1,7 @@
 #!/bin/bash
-#
-# TODO: write script description
-#
-# All additions go at the end of the file.
-#
 
 
-#
-# Override Aliases
-#
-# alias -g P=''
 
-
-#
-# [1 Default, Helper Aliases
-#
-
-
-# print working directory
-alias .='pwd'
-
-# go up one directory
-alias ..='cd ..'
-alias cd..='cd ..'
-
-# go up two directories
-alias ...='cd ../..'
-
-# go up three directories
-alias 3.='cd ../../../'
-
-# go up four directories
-alias 4.='cd ../../../../'
-
-# go to the home directory
-alias ~='cd $HOME'
 
 # go back to previous directory
 alias -.='cd -'
@@ -42,8 +9,6 @@ alias -.='cd -'
 # local bins
 alias airplane='~/.local/bin/toggle-airplane'
 
-# clear the terminal
-alias c='clear'
 
 # various ways of copying files, like interactively too
 alias cpy="tr -d '\\n' | xclip -selection clipboard"

@@ -1,0 +1,13 @@
+#!/bin/bash
+#   ____  ____  ____  ____
+#  ||i  |||o  |||d  |||s  |
+#  ||___|||___|||___|||___|
+#  |/___\|/___\|/_ _\|/___\
+#
+# Terminal up-keep dotfile, for  maintaining what I am looking at.
+#
+# iTerm Tab and Title Customization and prompt customization
+# http://sage.ucsc.edu/xtal/iterm_tab_customization.html
+# http://github.com/iods/dotfiles
+#
+# echo "Loaded [3] third in sequence."

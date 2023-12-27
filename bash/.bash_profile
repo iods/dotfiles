@@ -9,24 +9,13 @@
 #
 # .bash_profile is loaded in login shells (also see .bashrc).
 
-# case $~ in
-#   *i*) ;;
-#     *) return
-#     ;;
-# esac
 
 
 
 # [[ -s ~/.profile ]] && source ~/.profile
 # [[ -s ~/.bashrc ]] && source ~/.bashrc
-# # if not running interactively, don't do anything
-# [ -z "${PS1}" ] && return
-
-# [[ -s "$HOME/.profile" ]] && source "${HOME}/.profile"
 
 
-# # colorize grep
-# export GREP_OPTIONS='--color=auto'
 
 # # colorize ls
 # eval "$(dircolors -b "$HOME/.dotfiles"/system/.dir_colors)"
@@ -56,7 +45,7 @@
 # PATH=/usr/local/sbin:$PATH
 # [ -d /usr/local/mysql/bin ] && PATH=/usr/local/mysql/bin:$PATH
 # [ -d /usr/local/share/npm/bin ] && PATH=/usr/local/share/npm/bin:$PATH
-  
+
 
 echo "Adding your SSH key"
 
