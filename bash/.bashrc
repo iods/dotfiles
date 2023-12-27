@@ -75,24 +75,7 @@ esac
 host=`uname -n | sed -e 's/\.lan$//g' -e 's/\.local$//g'`;
 platform=`uname`;
 
-# append and reload the history after each command
-# Taken from https://metaredux.com/posts/2020/07/07/supercharge-your-bash-history.html
-PROMPT_COMMAND="history -a; history -n"
 
-
-export HISTIGNORE="[   ]*:&:bg:fg:exit"
-# Prepend history entries with timestamps
-export HISTTIMEFORMAT="[%F %T] "
-export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
-export HISTSIZE=100000                   # big big history ( leave empty for unlimited )
-export HISTFILESIZE=100000               # big big history (leave empty for unlimited )
-shopt -s histappend                      # append to history, don't overwrite it
-
-# Save and reload the history after each command finishes
-# export PROMPT_COMMAND="$PROMPT_COMMAND; \history -a;"
-
-# Autocorrect typos in path names when using `cd`
-shopt -s cdspell
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
@@ -100,10 +83,6 @@ shopt -s cdspell
 
 # Case-insensitive globbling (used with pathname expansion)
 shopt -s nocaseglob
-
-# Check the window size after each command and, if necessary, update
-# the values of LINES and COLUMNS.
-shopt -s checkwinsize
 
 
 

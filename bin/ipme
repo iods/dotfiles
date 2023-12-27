@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 # A short description of the script goes here.
 #
 # Usage:
@@ -21,51 +21,6 @@ fi
 
 # ensures the trap handler is inherited or it wont work as expected
 set -o errtrace
-
-function usage() {
-  local script_name
-  script_name="$(basename "$0")"
-
-  cat >&2 <<-EOF
-
-  Command: ${script_name}
-  Description: Returns what process is the owner of a provided port.
-
-  Usage:
-    ${script_name} [PORT]
-
-  Available Options:
-    -h, --help              Print this help menu.
-    -v|vv|vvv, --verbose    Increase the verbosity of messages.
-
-  Help:
-    Check for ports that are taken when trying to run Magento.
-
-      whohas 8080
-
-    Make sure you have System Preferences closed to not overwrite options.
-
-EOF
-  exit 1
-}
-
-function err() {
-
-}
-
-function func_one() {}
-
-function main() {
-  case "${1-}" in
-    -h | --help) usage
-    ;;
-    *) func_one ;;
-  esac
-}
-
-main "$@"
-
-set -o errexit
 
 curl -sf https://ipinfo.io/ip
 echo
