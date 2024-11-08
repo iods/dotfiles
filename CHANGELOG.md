@@ -10,18 +10,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [Unreleased]
 ------------
 
-[00.2.0] - 2023-05-14
+[000.2.2] - 2024-10-31
 
 ### Breaking Changes
- - Install setup.
+ - Folder organizations
 
 ### Notable Changes
+	- Updates to documentation
+	- Removal of unused scripts
 
 #### Added
+	- README
+	- Stow for linking
+	- Addition of gnupg, vim, app configurations, and wallpaper
 
 #### Bug Fixes
 
 #### Documentation
+	- Updates to installation
+	- README for scripts
 
 
 [Released]

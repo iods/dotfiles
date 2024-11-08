@@ -293,3 +293,67 @@ shellcheck: ## Runs the shellcheck tests on the scripts.
 .PHONY: help
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+.SILENT:
+.PHONY: init install uninstall
+
+OS := $(shell cat /etc/issue | awk -F" " '{print $$1}' | sed 's/./\L&/g')
+
+init: .stowrc
+	echo "--target=$$(echo $$HOME)" > .stowrc
+	echo "--verbose" >> .stowrc
+
+install: init
+	stow asdf
+	stow bat
+	stow beets
+	stow bin
+	stow brew
+	stow bundler
+	stow composer
+	stow feh
+	stow flavours
+	stow fontconfig
+	stow git
+	stow gnupg
+	stow kitty
+	stow lf
+	stow lftp
+	stow mail
+	stow mpd
+	stow mpv
+	stow myrepos
+	stow ncmpcpp
+	stow newsboat
+	stow npm
+	stow nsxiv
+	stow php-cs-fixer
+	stow pip
+	stow polybar
+	stow pywal
+	stow ripgrep
+	stow rofi
+	stow rtv
+	stow ssh
+	stow -d sublime @linux
+	stow tremc
+	stow tridactyl
+	stow w3m
+	stow weechat
+	stow wezterm
+	stow wget
+	stow xdg
+	stow yamllint
+	stow yarn
+	stow zathura
+	stow zsh
+	stow @$(OS) --override=".*"
+
+uninstall:
+	stow -D asdf
+	stow -D bat
+	stow -D beets
+	stow -D bin
+	stow -D brew
+	stow -D bundler
+	stow -D composer
