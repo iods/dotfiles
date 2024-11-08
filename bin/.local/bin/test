@@ -1,0 +1,130 @@
+#!/bin/bash
+#   ____  ____  ____  ____
+#  ||i  |||o  |||d  |||s  |
+#  ||___|||___|||___|||___|
+#  |/___\|/___\|/_ _\|/___\
+#
+# Run some basic OS specific, global run tests.
+#
+# TODO:
+#   - one
+#   - two
+#
+# Version 0.2.1 [2024-10-31]
+# http://github.com/iods/dotfiles
+# Copyright (c) 2023-Present, Rye Miller
+
+# if ! (return 0 2> /dev/null); then
+#   set -o errexit
+#   set -o nounset
+#   set -o pipefail
+# fi
+
+# set -o errtrace
+
+# set whether you are on your home machine.
+# declare -xr IS_HOME_PC=false
+
+# set the current working directory of the script source.
+# declare SOMEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# check the name of the system currently running.
+# declare -xr UN="$(uname -s)"
+# case "${UN}" in
+#   Linux*)
+#     MACHINE=Linux
+#     ;;
+#   Darwin*)
+#     MACHINE=Darwin
+#     ;;
+#   CYGWIN*)
+#     MACHINE=Cygwin
+#     ;;
+#   *)
+#     MACHINE="Unknown"
+#     ;;
+# esac
+
+# returns the Dotfiles directory (current directory of the script source)
+# readonly BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# returns the current working directory you are in
+# readonly CURRENTDIR="$(readlink -f "$(dirname "${BASH_SOURCE:-$0}")")"
+
+# returns the users HOME directory
+# readonly HOME_DIR="${HOME}"
+
+# terminal colors
+# b='\033[1m'
+# u='\033[4m' 
+# bl='\E[30m' 
+# r='\E[31m'
+# g='\E[32m'
+# y='\E[33m'
+# bu='\E[34m'
+# m='\E[35m'
+# c='\E[36m'
+# w='\E[37m'
+# endc='\E[0m'
+# enda='\033[0m'
+# red='\033[0;31m'
+# g='\033[0;32m'
+# YELLOW='\033[0;33m'
+# NC='\033[0m' 
+# No Color
+# shellcheck disable=SC2034
+# local color_debug="\\x1b[35m"
+# # shellcheck disable=SC2034
+# local color_info="\\x1b[32m"
+# # shellcheck disable=SC2034
+# local color_notice="\\x1b[34m"
+# # shellcheck disable=SC2034
+# local color_warning="\\x1b[33m"
+# # shellcheck disable=SC2034
+# local color_error="\\x1b[31m"
+# # shellcheck disable=SC2034
+# local color_critical="\\x1b[1;31m"
+# # shellcheck disable=SC2034
+# local color_alert="\\x1b[1;37;41m"
+# # shellcheck disable=SC2034
+# local color_emergency="\\x1b[1;4;5;37;41m"
+
+# echo -e "${GREEN}INFO: Process completed successfully.${NC}"
+# echo -e "${YELLOW}WARNING: Low disk space.${NC}"
+# echo -e "${RED}ERROR: File not found.${NC}"
+
+# Output:
+# INFO: Process completed successfully. (in green color)
+# WARNING: Low disk space. (in yellow color)
+# ERROR: File not found. (in red color)
+
+# run the above tests and configurations
+# echo -e "${b}Running some internal tests...${NC}"
+# echo
+# if [[ "${IS_HOME_PC}" == true ]]; then
+#   echo -e "- is home machine: ${$b}${u}true${NC}"
+# else
+#   echo -e "- is home machine: ${b}${u}false${NC}"
+# fi
+# echo "- current working directory: ${SOMEDIR}"
+# echo "- project base directory: ${BASEDIR}"
+# echo "- user home directory: ${HOME_DIR}"
+# echo "- environment: ${MACHINE}"
+# echo
+# echo -e "- ${bu}color for blank${NC}"
+
+TEST=$'\\[\e[31m\\]\u2234\\[\e[0m\\]\n\u2192 \u263f \\~ \\[\e[31m\\]\u2605 $? \\[\e[0m\\]'
+
+echo  "${TEST} Hello Worlds"
+
+# there are three file descriptions; stdout, stdin, stderr
+
+# redirect stdout to a file
+# redirect stderr to a file
+# redirect stdout to a stderr
+# redirect stderr to a stdout
+# redirect stderr and stdout to a file
+# redirect stderr and stdout to stdout
+# redirect stderr and stdout to stderr
+# 1 'represents' stdout and 2 stderr
+

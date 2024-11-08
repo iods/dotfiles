@@ -1,6 +1,0 @@
-#!/bin/sh
-
-set -eu
-
-echo "Updating outdated global npm packages, if any"
-npm update -g

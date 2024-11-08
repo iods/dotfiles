@@ -1,0 +1,23 @@
+#!/bin/bash
+#   ____  ____  ____  ____
+#  ||i  |||o  |||d  |||s  |
+#  ||___|||___|||___|||___|
+#  |/___\|/___\|/_ _\|/___\
+#
+# A cheatsheet for all of my custom commands.
+#
+# Usage:
+#  - <command> [OPTION] [ARG]
+#
+# TODO:
+#   - one
+#   - two
+#
+# Version 000.2.2 [2024-10-31]
+# http://github.com/iods/dotfiles
+# Copyright (c) 2023-Present, Rye Miller
+
+# cron
+  sudo crontab -l -u <user>                                     # view cron jobs for a specific user
+  sudo crontab -e -u <user>                                     # edit cron jobs for a specific user
+  sudo sh -c 'tail -n +1 /var/spool/cron/*'                     # list crontab for all users

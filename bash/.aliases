@@ -1,0 +1,80 @@
+#!/bin/bash
+#   ____  ____  ____  ____
+#  ||i  |||o  |||d  |||s  |
+#  ||___|||___|||___|||___|
+#  |/___\|/___\|/_ _\|/___\
+#
+# Executed for login shells. This file is not read by bash when ~/.bash_profile
+# or ~/.bash_login exist.
+#
+# TODO:
+#   - one
+#   - two
+#
+# Version 0.2.1 [2024-10-31]
+# http://github.com/iods/dotfiles
+# Copyright (c) 2023-Present, Rye Miller
+
+# commands with default arguments.
+alias cp="cp -v" #-i
+alias la="ls -a"
+alias lf="ls -cf"
+alias ll="ls -alF"
+alias ls="ls -hlF --color=tty"
+alias mkdir="mkdir -p -v"
+alias mv="mv -v" #-i
+alias rm="rm -i -v"
+
+# cli shortcuts
+alias .="pwd"
+alias ..="cd .."
+alias 2.="cd ../.."
+alias 3.="cd ../../../"
+alias 4.="cd ../../../../"
+alias c="clear"
+alias clr="clear"
+alias cls="clear"
+alias shc="shellcheck"
+alias shfc="shfmt"
+
+# clipboard
+alias getcopy="xclip -selection c -o"
+alias setcopy="xclip -selection c"
+
+# docker
+
+# git
+alias ga="git add"
+alias gc="git commit"
+alias gca="git commit --amend"
+alias gcm="git commit -m"
+alias gco="git checkout"
+alias gcob="git checkout -b"
+alias gd="git diff --color | sed 's/^\([^-+ ]*\)[-+ ]/\\1/' | less -r"
+alias gf="git fetch"
+alias gl="git log --oneline"
+alias gp="git push HEAD"
+alias gpf="git push origin HEAD --force"
+alias gs="git status -sb"
+
+# golang
+
+# random custom commands
+alias shell-reset="source ~/.config/zsh/.zshrc"
+
+# single/quick letter commands
+alias b="bat"
+alias c="cat"
+alias d="dirs -v | head -10"
+alias f="fff"
+alias g="git"
+alias l="ls -F --color"
+alias m="mkdir"
+alias n="nnn"
+alias r="rm"
+alias s="sudo"
+alias t="task"
+alias y="yarn"
+
+# ssh and gpg
+alias cpkey="copyq copy - < ~/.ssh/id_rsa.pub | echo 'Public key copied.'"
