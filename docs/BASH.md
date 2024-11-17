@@ -74,3 +74,25 @@ This will place every output of a program to a file. This is suitable sometimes 
         rm -f $(find / -name core) &> /dev/null 
         
 This (thinking on the cron entry) will delete every file called 'core' in any directory. Notice that you should be pretty sure of what a command is doing if you are going to wipe it's output.
+
+## File and Directory Support
+
+### `ls` Tips
+
+`ls <option> /path/to/dir`
+
+ - `ls` lists the directory contents separated by a comma.
+ - `ls -Q` lists directory contents enclosed by quotation marks.
+ - `ls -l` lists files in a long-list format.
+ - `ls -lh` lists file sizes in a human-readable format.
+ - `ls -g` omits groups ownership column.
+ - `ls -F` adds a forward slash when listing directories.
+ - `ls -i` lists inode number of files and directories.
+ - `ls -a` lists all files including hidden ones.
+ - `ls *.` lists files according to the file extension.
+ - `ls -la` lists all files and directories in long list format.
+ - `ls -R` displays files and directories recursively.
+ - `ls -r` lists files in reverse.
+ - `ls -X` lists files alphabetically by file extension.
+ - `ls -tl` displays files according to the creation date and time.
+ - `ls -n` list UIDs and GIDs.
